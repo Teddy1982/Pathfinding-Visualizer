@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>17.0</VCProjectVersion>
+    <Keyword>Win32Proj</Keyword>
+    <ProjectGuid>{ffa6c3a8-5b45-4529-8b6b-9775a36167b2}</ProjectGuid>
+    <RootNamespace>PathfindingVisualizer</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <IncludePath>D:\Programmieren\VisualC++Progs\Vulkan\Pathfinding-Visualizer\Pathfinding-Visualizer\include;D:\Programmieren\VisualC++Progs\Vulkan\Pathfinding-Visualizer\Pathfinding-Visualizer\libs\glfw\include;D:\Programmieren\VisualC++Progs\Vulkan\Pathfinding-Visualizer\Pathfinding-Visualizer\libs\vulkan\Include;$(IncludePath)</IncludePath>
+    <LibraryPath>D:\Programmieren\VisualC++Progs\Vulkan\Pathfinding-Visualizer\Pathfinding-Visualizer\libs\glfw\lib;D:\Programmieren\VisualC++Progs\Vulkan\Pathfinding-Visualizer\Pathfinding-Visualizer\libs\vulkan\Lib;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <IncludePath>D:\Programmieren\VisualC++Progs\Vulkan\Pathfinding-Visualizer\Pathfinding-Visualizer\include;D:\Programmieren\VisualC++Progs\Vulkan\Pathfinding-Visualizer\Pathfinding-Visualizer\libs\glfw\include;D:\Programmieren\VisualC++Progs\Vulkan\Pathfinding-Visualizer\Pathfinding-Visualizer\libs\vulkan\Include;$(IncludePath)</IncludePath>
+    <LibraryPath>D:\Programmieren\VisualC++Progs\Vulkan\Pathfinding-Visualizer\Pathfinding-Visualizer\libs\glfw\lib;D:\Programmieren\VisualC++Progs\Vulkan\Pathfinding-Visualizer\Pathfinding-Visualizer\libs\vulkan\Lib;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <IncludePath>D:\Programmieren\VisualC++Progs\Vulkan\Pathfinding-Visualizer\Pathfinding-Visualizer\include;D:\Programmieren\VisualC++Progs\Vulkan\Pathfinding-Visualizer\Pathfinding-Visualizer\libs\glfw\include;D:\Programmieren\VisualC++Progs\Vulkan\Pathfinding-Visualizer\Pathfinding-Visualizer\libs\vulkan\Include;$(IncludePath)</IncludePath>
+    <LibraryPath>D:\Programmieren\VisualC++Progs\Vulkan\Pathfinding-Visualizer\Pathfinding-Visualizer\libs\glfw\lib;D:\Programmieren\VisualC++Progs\Vulkan\Pathfinding-Visualizer\Pathfinding-Visualizer\libs\vulkan\Lib;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <IncludePath>D:\Programmieren\VisualC++Progs\Vulkan\Pathfinding-Visualizer\Pathfinding-Visualizer\include;D:\Programmieren\VisualC++Progs\Vulkan\Pathfinding-Visualizer\Pathfinding-Visualizer\libs\glfw\include;D:\Programmieren\VisualC++Progs\Vulkan\Pathfinding-Visualizer\Pathfinding-Visualizer\libs\vulkan\Include;$(IncludePath)</IncludePath>
+    <LibraryPath>D:\Programmieren\VisualC++Progs\Vulkan\Pathfinding-Visualizer\Pathfinding-Visualizer\libs\glfw\lib;D:\Programmieren\VisualC++Progs\Vulkan\Pathfinding-Visualizer\Pathfinding-Visualizer\libs\vulkan\Lib;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>GLM_ENABLE_EXPERIMENTAL</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <AdditionalIncludeDirectories>D:\Programmieren\VisualC++Progs\Vulkan\Pathfinding-Visualizer\Pathfinding-Visualizer\libs\glm;D:\Programmieren\VisualC++Progs\Vulkan\Pathfinding-Visualizer\Pathfinding-Visualizer\libs\imgui;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>vulkan-1.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>GLM_ENABLE_EXPERIMENTAL</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <AdditionalIncludeDirectories>D:\Programmieren\VisualC++Progs\Vulkan\Pathfinding-Visualizer\Pathfinding-Visualizer\libs\glm;D:\Programmieren\VisualC++Progs\Vulkan\Pathfinding-Visualizer\Pathfinding-Visualizer\libs\imgui;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>vulkan-1.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>GLM_ENABLE_EXPERIMENTAL</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <AdditionalIncludeDirectories>D:\Programmieren\VisualC++Progs\Vulkan\Pathfinding-Visualizer\Pathfinding-Visualizer\libs\glm;D:\Programmieren\VisualC++Progs\Vulkan\Pathfinding-Visualizer\Pathfinding-Visualizer\libs\imgui;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>vulkan-1.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>GLM_ENABLE_EXPERIMENTAL</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <AdditionalIncludeDirectories>D:\Programmieren\VisualC++Progs\Vulkan\Pathfinding-Visualizer\Pathfinding-Visualizer\libs\glm;D:\Programmieren\VisualC++Progs\Vulkan\Pathfinding-Visualizer\Pathfinding-Visualizer\libs\imgui;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>vulkan-1.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="src\application\application.h" />
+    <ClInclude Include="src\application\app_state.h" />
+    <ClInclude Include="src\globals\global_constants.h" />
+    <ClInclude Include="src\grid\grid_controller.h" />
+    <ClInclude Include="src\grid\grid_visualizer.h" />
+    <ClInclude Include="src\pathfinding\algoLogic.h" />
+    <ClInclude Include="src\pathfinding\a_star.h" />
+    <ClInclude Include="src\pathfinding\bellman_ford.h" />
+    <ClInclude Include="src\pathfinding\breadth_first.h" />
+    <ClInclude Include="src\pathfinding\depth_first.h" />
+    <ClInclude Include="src\pathfinding\dijkstra.h" />
+    <ClInclude Include="src\pathfinding\floyd_warshall.h" />
+    <ClInclude Include="src\pathfinding\fringe_search.h" />
+    <ClInclude Include="src\pathfinding\greedy_best_first.h" />
+    <ClInclude Include="src\pathfinding\ida_star.h" />
+    <ClInclude Include="src\pathfinding\pathfindingAlgorithm.h" />
+    <ClInclude Include="src\pathfinding\theta_star.h" />
+    <ClInclude Include="src\scene\connection_vertex.h" />
+    <ClInclude Include="src\scene\cube_edge_vertex.h" />
+    <ClInclude Include="src\scene\cube_state.h" />
+    <ClInclude Include="src\scene\cube_vertex.h" />
+    <ClInclude Include="src\scene\geometry_builder.h" />
+    <ClInclude Include="src\scene\quad_edge_vertex.h" />
+    <ClInclude Include="src\scene\quad_vertex.h" />
+    <ClInclude Include="src\scene\skybox_structures.h" />
+    <ClInclude Include="src\tools\camera.h" />
+    <ClInclude Include="src\tools\controls.h" />
+    <ClInclude Include="src\tools\debug.h" />
+    <ClInclude Include="src\tools\logger.h" />
+    <ClInclude Include="src\tools\user_input_callbacks.h" />
+    <ClInclude Include="src\userInterface\ui_command_buffer.h" />
+    <ClInclude Include="src\userInterface\user_interface.h" />
+    <ClInclude Include="src\vulkan\buffer_utils.h" />
+    <ClInclude Include="src\vulkan\helper_functions.h" />
+    <ClInclude Include="src\vulkan\image_utils.h" />
+    <ClInclude Include="src\vulkan\renderData.h" />
+    <ClInclude Include="src\vulkan\renderer.h" />
+    <ClInclude Include="src\vulkan\uniform_buffer_object.h" />
+    <ClInclude Include="src\vulkan\vulkan_context.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="imgui.cpp" />
+    <ClCompile Include="imgui_draw.cpp" />
+    <ClCompile Include="imgui_impl_glfw.cpp" />
+    <ClCompile Include="imgui_impl_vulkan.cpp" />
+    <ClCompile Include="imgui_tables.cpp" />
+    <ClCompile Include="imgui_widgets.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="src\application\application.cpp" />
+    <ClCompile Include="src\grid\grid_controller.cpp" />
+    <ClCompile Include="src\grid\grid_visualizer.cpp" />
+    <ClCompile Include="src\pathfinding\algoLogic.cpp" />
+    <ClCompile Include="src\pathfinding\a_star.cpp" />
+    <ClCompile Include="src\pathfinding\bellman_ford.cpp" />
+    <ClCompile Include="src\pathfinding\breadth_first.cpp" />
+    <ClCompile Include="src\pathfinding\depth_first.cpp" />
+    <ClCompile Include="src\pathfinding\dijkstra.cpp" />
+    <ClCompile Include="src\pathfinding\floyd_warshall.cpp" />
+    <ClCompile Include="src\pathfinding\fringe_search.cpp" />
+    <ClCompile Include="src\pathfinding\greedy_best_first.cpp" />
+    <ClCompile Include="src\pathfinding\ida_star.cpp" />
+    <ClCompile Include="src\pathfinding\theta_star.cpp" />
+    <ClCompile Include="src\scene\connection_vertex.cpp" />
+    <ClCompile Include="src\scene\cube_edge_vertex.cpp" />
+    <ClCompile Include="src\scene\cube_vertex.cpp" />
+    <ClCompile Include="src\scene\geometry_builder.cpp" />
+    <ClCompile Include="src\scene\quad_edge_vertex.cpp" />
+    <ClCompile Include="src\scene\quad_vertex.cpp" />
+    <ClCompile Include="src\tools\camera.cpp" />
+    <ClCompile Include="src\tools\controls.cpp" />
+    <ClCompile Include="src\tools\logger.cpp" />
+    <ClCompile Include="src\tools\user_input_callbacks.cpp" />
+    <ClCompile Include="src\userInterface\ui_command_buffer.cpp" />
+    <ClCompile Include="src\userInterface\user_interface.cpp" />
+    <ClCompile Include="src\vulkan\buffer_utils.cpp" />
+    <ClCompile Include="src\vulkan\helper_functions.cpp" />
+    <ClCompile Include="src\vulkan\image_utils.cpp" />
+    <ClCompile Include="src\vulkan\renderer.cpp" />
+    <ClCompile Include="src\vulkan\vulkan_context.cpp" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

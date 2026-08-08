@@ -1,0 +1,297 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Quelldateien">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Headerdateien">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Ressourcendateien">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Headerdateien\application">
+      <UniqueIdentifier>{55050464-c9e4-4041-af9e-c4e0556c0d65}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headerdateien\globals">
+      <UniqueIdentifier>{a85d6a08-85a9-4f74-a4ee-c6d7b136c0d7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headerdateien\grid">
+      <UniqueIdentifier>{652f1158-efef-4b44-8fd3-a82b12356bfd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headerdateien\pathfinding">
+      <UniqueIdentifier>{a168f1d8-bab4-444e-b0ed-fbf6249c690a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headerdateien\scene">
+      <UniqueIdentifier>{c2e4140f-9c0f-4987-86ea-c0984464b383}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headerdateien\tools">
+      <UniqueIdentifier>{74a603ae-575f-4aa4-9f9d-093ac7e611bd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headerdateien\userInterface">
+      <UniqueIdentifier>{9f42dd00-63a5-4026-bad9-6d1bbcfaf885}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headerdateien\vulkan">
+      <UniqueIdentifier>{68ef0ee4-ea53-4346-8260-ba6afc2d383e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Quelldateien\application">
+      <UniqueIdentifier>{210594d8-e684-455f-9bf9-7ba3f52ed551}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Quelldateien\grid">
+      <UniqueIdentifier>{ed7a27de-478c-43e4-8549-95033c5d5166}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Quelldateien\vulkan">
+      <UniqueIdentifier>{5cf1ada4-43e5-448a-a35c-0cfebf8f021a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Quelldateien\userInterface">
+      <UniqueIdentifier>{08ed8512-cabe-4e0f-be1f-168484014b2c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Quelldateien\tools">
+      <UniqueIdentifier>{6af6b2d1-7a6f-4fdf-8b5c-04bafeca5a00}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Quelldateien\scene">
+      <UniqueIdentifier>{ea6bfd25-3f03-40c9-9902-18b29dd24d1e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Quelldateien\pathfinding">
+      <UniqueIdentifier>{37567c2f-5c92-4548-917d-6f4f861d9283}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\application\app_state.h">
+      <Filter>Headerdateien\application</Filter>
+    </ClInclude>
+    <ClInclude Include="src\application\application.h">
+      <Filter>Headerdateien\application</Filter>
+    </ClInclude>
+    <ClInclude Include="src\globals\global_constants.h">
+      <Filter>Headerdateien\globals</Filter>
+    </ClInclude>
+    <ClInclude Include="src\grid\grid_controller.h">
+      <Filter>Headerdateien\grid</Filter>
+    </ClInclude>
+    <ClInclude Include="src\grid\grid_visualizer.h">
+      <Filter>Headerdateien\grid</Filter>
+    </ClInclude>
+    <ClInclude Include="src\pathfinding\a_star.h">
+      <Filter>Headerdateien\pathfinding</Filter>
+    </ClInclude>
+    <ClInclude Include="src\pathfinding\algoLogic.h">
+      <Filter>Headerdateien\pathfinding</Filter>
+    </ClInclude>
+    <ClInclude Include="src\pathfinding\bellman_ford.h">
+      <Filter>Headerdateien\pathfinding</Filter>
+    </ClInclude>
+    <ClInclude Include="src\pathfinding\breadth_first.h">
+      <Filter>Headerdateien\pathfinding</Filter>
+    </ClInclude>
+    <ClInclude Include="src\pathfinding\depth_first.h">
+      <Filter>Headerdateien\pathfinding</Filter>
+    </ClInclude>
+    <ClInclude Include="src\pathfinding\dijkstra.h">
+      <Filter>Headerdateien\pathfinding</Filter>
+    </ClInclude>
+    <ClInclude Include="src\pathfinding\floyd_warshall.h">
+      <Filter>Headerdateien\pathfinding</Filter>
+    </ClInclude>
+    <ClInclude Include="src\pathfinding\fringe_search.h">
+      <Filter>Headerdateien\pathfinding</Filter>
+    </ClInclude>
+    <ClInclude Include="src\pathfinding\greedy_best_first.h">
+      <Filter>Headerdateien\pathfinding</Filter>
+    </ClInclude>
+    <ClInclude Include="src\pathfinding\ida_star.h">
+      <Filter>Headerdateien\pathfinding</Filter>
+    </ClInclude>
+    <ClInclude Include="src\pathfinding\pathfindingAlgorithm.h">
+      <Filter>Headerdateien\pathfinding</Filter>
+    </ClInclude>
+    <ClInclude Include="src\pathfinding\theta_star.h">
+      <Filter>Headerdateien\pathfinding</Filter>
+    </ClInclude>
+    <ClInclude Include="src\scene\connection_vertex.h">
+      <Filter>Headerdateien\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="src\scene\cube_edge_vertex.h">
+      <Filter>Headerdateien\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="src\scene\cube_state.h">
+      <Filter>Headerdateien\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="src\scene\cube_vertex.h">
+      <Filter>Headerdateien\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="src\scene\geometry_builder.h">
+      <Filter>Headerdateien\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="src\scene\quad_edge_vertex.h">
+      <Filter>Headerdateien\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="src\scene\quad_vertex.h">
+      <Filter>Headerdateien\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="src\scene\skybox_structures.h">
+      <Filter>Headerdateien\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tools\camera.h">
+      <Filter>Headerdateien\tools</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tools\controls.h">
+      <Filter>Headerdateien\tools</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tools\debug.h">
+      <Filter>Headerdateien\tools</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tools\logger.h">
+      <Filter>Headerdateien\tools</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tools\user_input_callbacks.h">
+      <Filter>Headerdateien\tools</Filter>
+    </ClInclude>
+    <ClInclude Include="src\userInterface\ui_command_buffer.h">
+      <Filter>Headerdateien\userInterface</Filter>
+    </ClInclude>
+    <ClInclude Include="src\userInterface\user_interface.h">
+      <Filter>Headerdateien\userInterface</Filter>
+    </ClInclude>
+    <ClInclude Include="src\vulkan\buffer_utils.h">
+      <Filter>Headerdateien\vulkan</Filter>
+    </ClInclude>
+    <ClInclude Include="src\vulkan\helper_functions.h">
+      <Filter>Headerdateien\vulkan</Filter>
+    </ClInclude>
+    <ClInclude Include="src\vulkan\image_utils.h">
+      <Filter>Headerdateien\vulkan</Filter>
+    </ClInclude>
+    <ClInclude Include="src\vulkan\renderData.h">
+      <Filter>Headerdateien\vulkan</Filter>
+    </ClInclude>
+    <ClInclude Include="src\vulkan\renderer.h">
+      <Filter>Headerdateien\vulkan</Filter>
+    </ClInclude>
+    <ClInclude Include="src\vulkan\uniform_buffer_object.h">
+      <Filter>Headerdateien\vulkan</Filter>
+    </ClInclude>
+    <ClInclude Include="src\vulkan\vulkan_context.h">
+      <Filter>Headerdateien\vulkan</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\application\application.cpp">
+      <Filter>Quelldateien\application</Filter>
+    </ClCompile>
+    <ClCompile Include="src\grid\grid_controller.cpp">
+      <Filter>Quelldateien\grid</Filter>
+    </ClCompile>
+    <ClCompile Include="src\grid\grid_visualizer.cpp">
+      <Filter>Quelldateien\grid</Filter>
+    </ClCompile>
+    <ClCompile Include="src\vulkan\buffer_utils.cpp">
+      <Filter>Quelldateien\vulkan</Filter>
+    </ClCompile>
+    <ClCompile Include="src\vulkan\helper_functions.cpp">
+      <Filter>Quelldateien\vulkan</Filter>
+    </ClCompile>
+    <ClCompile Include="src\vulkan\image_utils.cpp">
+      <Filter>Quelldateien\vulkan</Filter>
+    </ClCompile>
+    <ClCompile Include="src\vulkan\renderer.cpp">
+      <Filter>Quelldateien\vulkan</Filter>
+    </ClCompile>
+    <ClCompile Include="src\vulkan\vulkan_context.cpp">
+      <Filter>Quelldateien\vulkan</Filter>
+    </ClCompile>
+    <ClCompile Include="src\userInterface\ui_command_buffer.cpp">
+      <Filter>Quelldateien\userInterface</Filter>
+    </ClCompile>
+    <ClCompile Include="src\userInterface\user_interface.cpp">
+      <Filter>Quelldateien\userInterface</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tools\camera.cpp">
+      <Filter>Quelldateien\tools</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tools\controls.cpp">
+      <Filter>Quelldateien\tools</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tools\logger.cpp">
+      <Filter>Quelldateien\tools</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tools\user_input_callbacks.cpp">
+      <Filter>Quelldateien\tools</Filter>
+    </ClCompile>
+    <ClCompile Include="src\scene\connection_vertex.cpp">
+      <Filter>Quelldateien\scene</Filter>
+    </ClCompile>
+    <ClCompile Include="src\scene\cube_edge_vertex.cpp">
+      <Filter>Quelldateien\scene</Filter>
+    </ClCompile>
+    <ClCompile Include="src\scene\cube_vertex.cpp">
+      <Filter>Quelldateien\scene</Filter>
+    </ClCompile>
+    <ClCompile Include="src\scene\geometry_builder.cpp">
+      <Filter>Quelldateien\scene</Filter>
+    </ClCompile>
+    <ClCompile Include="src\scene\quad_edge_vertex.cpp">
+      <Filter>Quelldateien\scene</Filter>
+    </ClCompile>
+    <ClCompile Include="src\scene\quad_vertex.cpp">
+      <Filter>Quelldateien\scene</Filter>
+    </ClCompile>
+    <ClCompile Include="src\pathfinding\a_star.cpp">
+      <Filter>Quelldateien\pathfinding</Filter>
+    </ClCompile>
+    <ClCompile Include="src\pathfinding\algoLogic.cpp">
+      <Filter>Quelldateien\pathfinding</Filter>
+    </ClCompile>
+    <ClCompile Include="src\pathfinding\bellman_ford.cpp">
+      <Filter>Quelldateien\pathfinding</Filter>
+    </ClCompile>
+    <ClCompile Include="src\pathfinding\breadth_first.cpp">
+      <Filter>Quelldateien\pathfinding</Filter>
+    </ClCompile>
+    <ClCompile Include="src\pathfinding\depth_first.cpp">
+      <Filter>Quelldateien\pathfinding</Filter>
+    </ClCompile>
+    <ClCompile Include="src\pathfinding\dijkstra.cpp">
+      <Filter>Quelldateien\pathfinding</Filter>
+    </ClCompile>
+    <ClCompile Include="src\pathfinding\floyd_warshall.cpp">
+      <Filter>Quelldateien\pathfinding</Filter>
+    </ClCompile>
+    <ClCompile Include="src\pathfinding\fringe_search.cpp">
+      <Filter>Quelldateien\pathfinding</Filter>
+    </ClCompile>
+    <ClCompile Include="src\pathfinding\greedy_best_first.cpp">
+      <Filter>Quelldateien\pathfinding</Filter>
+    </ClCompile>
+    <ClCompile Include="src\pathfinding\ida_star.cpp">
+      <Filter>Quelldateien\pathfinding</Filter>
+    </ClCompile>
+    <ClCompile Include="src\pathfinding\theta_star.cpp">
+      <Filter>Quelldateien\pathfinding</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui_draw.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui_impl_glfw.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui_impl_vulkan.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui_tables.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui_widgets.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

@@ -363,22 +363,24 @@ void UserInterface::createFrame(RenderData& renderData) {
         drawLegendEntry("##PathColor", ImVec4(1.0f, 1.0f, 0.0f, 1.0f), "Gefundener Pfad");
     }
 
-    if (ImGui::CollapsingHeader("Zusatzinformationen"))
+    if (ImGui::CollapsingHeader("Bewertungsinformationen"))
     {
         if (appState.isComparePaths == true) {
             ImGui::Text("linker Algorithmus:");
-            ImGui::Text("-------------------");
+            ImGui::Text("---------------------------");
         }
-        ImGui::Text("Laufzeit:");
-        ImGui::Text("----------------------");
+        ImGui::Text("Laufzeit in");
         ImGui::Text("Millisekunden: %s", std::to_string(algoLogicLeft.runtime).c_str());
-        ImGui::Text("----------------------");
+        ImGui::Text("---------------------------");
+        ImGui::Text("Schrittnummer des");
+        ImGui::Text("ausgewaehlten Knotens: %s", std::to_string(step_left).c_str());
+        ImGui::Text("---------------------------");
         ImGui::Text("bearbeitete Knoten: %s", std::to_string(algoLogicLeft.nodeSteps.size()).c_str());
-        ImGui::Text("----------------------");
-        ImGui::Text("Schrittnr. des Knotens: %s", std::to_string(step_left).c_str());
-        ImGui::Text("----------------------");
+        ImGui::Text("---------------------------");
+        ImGui::Text("Pfadlaenge: %s", std::to_string(appState.pathLeft.size()).c_str());
+        ImGui::Text("---------------------------");
         ImGui::Text("Wegkosten:");
-        ImGui::Text("----------------------");
+        ImGui::Text("");
 
         if (algoLogicLeft.algorithms[algorithmusTypeLeft]->isFCost) {
             ImGui::Text("F-Kosten: %s", std::to_string(f_costs_left).c_str());
@@ -396,19 +398,21 @@ void UserInterface::createFrame(RenderData& renderData) {
             ImGui::Text("Bound: %s", std::to_string(bound_left).c_str());
         }
         if (appState.isComparePaths == true) {
-            ImGui::Text("----------------------");
+            ImGui::Text("---------------------------");
             ImGui::Text("rechter Algorithmus:");
-            ImGui::Text("----------------------");
-            ImGui::Text("Laufzeit:");
-            ImGui::Text("----------------------");
+            ImGui::Text("---------------------------");
+            ImGui::Text("Laufzeit in");
             ImGui::Text("Millisekunden: %s", std::to_string(algoLogicRight.runtime).c_str());
-            ImGui::Text("----------------------");
+            ImGui::Text("---------------------------");
+            ImGui::Text("Schrittnummer des");
+            ImGui::Text("ausgewaehlten Knotens: %s", std::to_string(step_right).c_str());
+            ImGui::Text("---------------------------");
             ImGui::Text("bearbeitete Knoten: %s", std::to_string(algoLogicRight.nodeSteps.size()).c_str());
-            ImGui::Text("----------------------");
-            ImGui::Text("Schrittnr. des Knotens: %s", std::to_string(step_right).c_str());
-            ImGui::Text("----------------------");
+            ImGui::Text("---------------------------");
+            ImGui::Text("Pfadlaenge: %s", std::to_string(appState.pathRight.size()).c_str());
+            ImGui::Text("---------------------------");
             ImGui::Text("Wegkosten:");
-            ImGui::Text("----------------------");
+            ImGui::Text("");
 
             if (algoLogicRight.algorithms[algorithmusTypeRight]->isFCost) {
                 ImGui::Text("F-Kosten: %s", std::to_string(f_costs_right).c_str());

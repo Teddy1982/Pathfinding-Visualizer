@@ -24,6 +24,12 @@ public:
 	std::vector<uint32_t> connectionIndicesLeft;
 	std::vector<uint32_t> connectionIndicesRight;
 
+	std::vector<QuadVertex> quadVertices;
+	std::vector<uint32_t> quadIndices;
+
+	std::vector<QuadEdgeVertex > quadEdgeVertices;
+	std::vector<uint32_t> quadEdgeIndices;
+
 	std::vector<SkyboxVertex> skyboxVertices;
 	std::vector<uint32_t> skyboxIndices;
 	std::array<FaceRegion, 6> skyboxFaces = { {
@@ -37,25 +43,9 @@ public:
 
 	void createUnitCube(int xId, int yId, int zId);
 	void createCubeEdges(float xId, float yId, float zId);
+	void createUnitQuad(int xId, int yId);
+	void createQuadEdges(float xId, float yId);
 	void createPathConnection(glm::vec3 a, glm::vec3 b, float thickness, bool isLeftViewport);
 	void createSkybox();
 	void rebuildPathGeometry(const std::vector<glm::ivec3>& path, bool isLeftViewport);
-
-	// 2D-Area
-	std::vector<QuadVertex> quadVertices;
-	std::vector<uint32_t> quadIndices;
-
-	std::vector<QuadEdgeVertex > quadEdgeVertices;
-	std::vector<uint32_t> quadEdgeIndices;
-
-	std::vector<ConnectionVertex> connectionVertices2DLeft;
-	std::vector<ConnectionVertex> connectionVertices2DRight;
-
-	std::vector<uint32_t> connectionIndices2DLeft;
-	std::vector<uint32_t> connectionIndices2DRight;
-
-	void createUnitQuad(int xId, int yId);
-	void createQuadEdges(float xId, float yId);
-	void createPathConnection2D(glm::vec2 a, glm::vec2 b, float thickness, bool isLeftViewport);
-	void rebuildPathGeometry2D(const std::vector<glm::ivec3>& path, bool isLeftViewport);
 };

@@ -1,3 +1,5 @@
+// cpp.Datei enthält Bindungs- und Attributdateien der Vertexklasse für Pfadverbindungslinien für die Vulkan-Grafik-Pipeline
+
 #include "connection_vertex.h"
 
 VkVertexInputBindingDescription ConnectionVertex::getBindingDescription() {
@@ -13,8 +15,8 @@ VkVertexInputAttributeDescription ConnectionVertex::getAttributeDescription() {
 	static VkVertexInputAttributeDescription attributeDescription;
 
 	// Position Attribute
-	attributeDescription.binding = 0; // Binding index
-	attributeDescription.location = 0; // Matches shader location
+	attributeDescription.binding = 0;
+	attributeDescription.location = 0;
 	attributeDescription.format = VK_FORMAT_R32G32B32_SFLOAT;
 	attributeDescription.offset = offsetof(ConnectionVertex, position);
 

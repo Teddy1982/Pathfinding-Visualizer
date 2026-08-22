@@ -23,10 +23,9 @@
 #include "bellman_ford.h"
 #include "floyd_warshall.h"
 #include "greedy_best_first.h"
-#include "theta_star.h"
-#include "ida_star.h"
 #include "fringe_search.h"
 
+//Struktur für Visualisierung für schrittweise Suche
 struct NodeStep
 {
     glm::ivec3 current;
@@ -34,7 +33,7 @@ struct NodeStep
     std::vector<glm::ivec3> closed;
 };
 
-
+// Knotenstruktur
 struct Node
 {
     bool bObstacle = false;
@@ -55,6 +54,7 @@ struct Node
     Node* parent = nullptr;
 };
 
+// Basisklasse für Pfadfindungsalgorithmen
 class AlgoLogic {
 public:
     int heuristicMode = MANHATTAN_DISTANCE;
@@ -85,8 +85,6 @@ public:
         algorithms.push_back(std::make_unique<Floyd_Warshall>());
         algorithms.push_back(std::make_unique<Fringe_Search>());
         algorithms.push_back(std::make_unique<Greedy_Best_First>());
-        algorithms.push_back(std::make_unique<IDA_Star>());
-        algorithms.push_back(std::make_unique<Theta_Star>());
     }
 
     int GetIndex3D(int x, int y, int z);

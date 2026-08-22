@@ -13,7 +13,7 @@
 BufferUtils::BufferUtils(RenderData& rData,AppState& state) : renderData(rData), appState(state) {}
 
 void BufferUtils::createBuffer(VkDeviceSize size, VkBufferUsageFlags usage, VkMemoryPropertyFlags properties, VkBuffer& buffer, VkDeviceMemory& bufferMemory) {
-	// Step 1: Create the Vulkan buffer
+	// Schritt 1: Erstellung des Vulkan Buffer
 	VkBufferCreateInfo bufferCreateInfo{};
 	bufferCreateInfo.sType = VK_STRUCTURE_TYPE_BUFFER_CREATE_INFO;
 	bufferCreateInfo.size = size;
@@ -24,7 +24,7 @@ void BufferUtils::createBuffer(VkDeviceSize size, VkBufferUsageFlags usage, VkMe
 		throw std::runtime_error("Failed to create buffer!");
 	}
 
-	// Step 2: Allocate memory for the buffer
+	// Schritt 2: Speicherallokierung für den Buffer
 	VkMemoryRequirements memRequirements;
 	vkGetBufferMemoryRequirements(renderData.vkInst.device, buffer, &memRequirements);
 
@@ -37,7 +37,7 @@ void BufferUtils::createBuffer(VkDeviceSize size, VkBufferUsageFlags usage, VkMe
 		throw std::runtime_error("Failed to allocate buffer memory!");
 	}
 
-	// Step 3: Bind the buffer to the allocated memory
+	// Schritt 3: Bindung des Buffers an den allokierten Speicher
 	if (vkBindBufferMemory(renderData.vkInst.device, buffer, bufferMemory, 0) != VK_SUCCESS) {
 		throw std::runtime_error("Failed to bind buffer memory!");
 	}
@@ -47,8 +47,8 @@ void BufferUtils::copyBuffer(VkBuffer srcBuffer, VkBuffer dstBuffer, VkDeviceSiz
 	VkCommandBuffer commandBuffer = helperFunctions.beginSingleTimeCommands(renderData.commandBuffers.commandPool, renderData.vkInst.device);
 
 	VkBufferCopy copyRegion{};
-	copyRegion.srcOffset = 0; // Start at the beginning of the source buffer
-	copyRegion.dstOffset = 0; // Start at the beginning of the destination buffer
+	copyRegion.srcOffset = 0; // Start am Anfang des Source Buffers
+	copyRegion.dstOffset = 0; // Start am Anfang des Destination Buffers
 	copyRegion.size = size;
 
 	vkCmdCopyBuffer(commandBuffer, srcBuffer, dstBuffer, 1, &copyRegion);
@@ -59,36 +59,34 @@ void BufferUtils::copyBuffer(VkBuffer srcBuffer, VkBuffer dstBuffer, VkDeviceSiz
 void BufferUtils::createVertexBuffer(VkBuffer& vBuffer, VkBuffer& iBuffer, VkDeviceMemory& vMemory, VkDeviceMemory& iMemory, void* vertexData, VkDeviceSize vertexSize, void* indexData, VkDeviceSize indexSize, uint32_t numIndices) {
 	if (vBuffer != VK_NULL_HANDLE || iBuffer != VK_NULL_HANDLE) return;
 
-	// We use a staging buffer to improve performance
-
-	// 1. Create Staging Buffers
+	// 1. Erstellung eines Staging Buffers
 	VkBuffer stagingVertexBuffer, stagingIndexBuffer;
 	VkDeviceMemory stagingVertexMemory, stagingIndexMemory;
 
-	// Allocate and copy vertex buffer data
+	// Allokieren und Kopieren von Vertex Buffer Daten
 	createBuffer(vertexSize, VK_BUFFER_USAGE_TRANSFER_SRC_BIT, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT, stagingVertexBuffer, stagingVertexMemory);
 	createBuffer(indexSize, VK_BUFFER_USAGE_TRANSFER_SRC_BIT, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT, stagingIndexBuffer, stagingIndexMemory);
 
-	// 2. Copy Vertex Data to Staging Buffer
+	// 2. Kopieren der Vertex Daten zum Staging Buffer
 	void* data;
 	vkMapMemory(renderData.vkInst.device, stagingVertexMemory, 0, vertexSize, 0, &data);
 	memcpy(data, vertexData, static_cast<size_t>(vertexSize));
 	vkUnmapMemory(renderData.vkInst.device, stagingVertexMemory);
 
-	// 3. Copy Index Data to Staging Buffer
+	// 3. Kopieren der Index Daten zum Staging Buffer
 	vkMapMemory(renderData.vkInst.device, stagingIndexMemory, 0, indexSize, 0, &data);
 	memcpy(data, indexData, static_cast<size_t>(indexSize));
 	vkUnmapMemory(renderData.vkInst.device, stagingIndexMemory);
 
-	// 4. Create GPU Buffers
+	// 4. Erstellung des GPU Buffers
 	createBuffer(vertexSize, VK_BUFFER_USAGE_TRANSFER_DST_BIT | VK_BUFFER_USAGE_VERTEX_BUFFER_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT, vBuffer, vMemory);
 	createBuffer(indexSize, VK_BUFFER_USAGE_TRANSFER_DST_BIT | VK_BUFFER_USAGE_INDEX_BUFFER_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT, iBuffer, iMemory);
 
-	// 5. Copy from Staging to GPU Buffers
+	// 5. Kopieren vom Staging zu GPU Buffers
 	copyBuffer(stagingVertexBuffer, vBuffer, vertexSize);
 	copyBuffer(stagingIndexBuffer, iBuffer, indexSize);
 
-	// 6. Cleanup Staging Buffers
+	// 6. Staging Buffers aufräumen
 	vkDestroyBuffer(renderData.vkInst.device, stagingVertexBuffer, nullptr);
 	vkFreeMemory(renderData.vkInst.device, stagingVertexMemory, nullptr);
 
@@ -96,7 +94,7 @@ void BufferUtils::createVertexBuffer(VkBuffer& vBuffer, VkBuffer& iBuffer, VkDev
 	vkFreeMemory(renderData.vkInst.device, stagingIndexMemory, nullptr);
 }
 
-// Create Uniform Buffer
+// Erstellung des Uniform Buffers
 void BufferUtils::createUniformBuffer() {
 	if (renderData.uniformBuffer.buffer != VK_NULL_HANDLE) return;
 
@@ -105,7 +103,7 @@ void BufferUtils::createUniformBuffer() {
 	createBuffer(bufferSize, VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT, renderData.uniformBuffer.buffer, renderData.uniformBuffer.memory);
 }
 
-// Create Uniform Buffer
+// Erstellung des Storage Buffers für die linke Algorithmusansicht
 void BufferUtils::createLeftStorageBuffer() {
 	if (renderData.storageBuffer.buffer != VK_NULL_HANDLE) return;
 
@@ -114,6 +112,7 @@ void BufferUtils::createLeftStorageBuffer() {
 	createBuffer(bufferSize, VK_BUFFER_USAGE_STORAGE_BUFFER_BIT, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT, renderData.storageBuffer.buffer, renderData.storageBuffer.memory);
 }
 
+// Erstellung des Storage Buffers für die rechte Algorithmusansicht
 void BufferUtils::createRightStorageBuffer() {
 	if (renderData.storageBuffer.bufferRight != VK_NULL_HANDLE) return;
 
@@ -124,7 +123,7 @@ void BufferUtils::createRightStorageBuffer() {
 
 void BufferUtils::createConnectionBuffers() {
 
-	//Connections
+	// Erstellen von Buffer für die Pfad-Verbindungslinien für die linke und rechte Algorithmusansicht
 	createBuffer(
 		sizeof(ConnectionVertex) * 8 * appState.xSize * appState.ySize * appState.zSize - 1,
 		VK_BUFFER_USAGE_VERTEX_BUFFER_BIT,

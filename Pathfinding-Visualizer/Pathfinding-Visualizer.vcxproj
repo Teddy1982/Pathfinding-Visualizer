@@ -165,9 +165,7 @@
     <ClInclude Include="src\pathfinding\floyd_warshall.h" />
     <ClInclude Include="src\pathfinding\fringe_search.h" />
     <ClInclude Include="src\pathfinding\greedy_best_first.h" />
-    <ClInclude Include="src\pathfinding\ida_star.h" />
     <ClInclude Include="src\pathfinding\pathfindingAlgorithm.h" />
-    <ClInclude Include="src\pathfinding\theta_star.h" />
     <ClInclude Include="src\scene\connection_vertex.h" />
     <ClInclude Include="src\scene\cube_edge_vertex.h" />
     <ClInclude Include="src\scene\cube_state.h" />

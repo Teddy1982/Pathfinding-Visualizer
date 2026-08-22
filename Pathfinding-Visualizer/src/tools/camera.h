@@ -3,6 +3,7 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
+// virtuelle Kamera für 3D-Darstellung
 class Camera  {
 public:
 	Camera(glm::vec3 position, float pitch, float yaw);

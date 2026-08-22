@@ -39,6 +39,14 @@ std::vector<glm::ivec3> Floyd_Warshall::search(
     const float infinity = std::numeric_limits<float>::infinity();
     constexpr float epsilon = 0.00001f;
 
+    const bool useManhattanCosts =
+        searchDirections == SEARCH_4_DIRECTIONS ||
+        searchDirections == SEARCH_6_DIRECTIONS;
+
+    logic.heuristicMode = useManhattanCosts
+        ? MANHATTAN_DISTANCE
+        : EUCLID_DISTANCE;
+
     std::vector<Node*> activeNodes;
 
     // Aktive, nicht blockierte Knoten sammeln
@@ -114,8 +122,16 @@ std::vector<glm::ivec3> Floyd_Warshall::search(
     const int startIndex = startIt->second;
     const int endIndex = endIt->second;
 
-    auto edgeCost =
-        [](const Node* first, const Node* second) -> float
+    auto manhattanDistance = [](const Node* first, const Node* second) -> float
+        {
+            return static_cast<float>(
+                std::abs(first->x - second->x) +
+                std::abs(first->y - second->y) +
+                std::abs(first->z - second->z)
+                );
+        };
+
+    auto euclideanDistance = [](const Node* first, const Node* second) -> float
         {
             const float dx =
                 static_cast<float>(first->x - second->x);
@@ -124,7 +140,19 @@ std::vector<glm::ivec3> Floyd_Warshall::search(
             const float dz =
                 static_cast<float>(first->z - second->z);
 
-            return std::sqrt(dx * dx + dy * dy + dz * dz);
+            return std::sqrt(
+                dx * dx +
+                dy * dy +
+                dz * dz
+            );
+        };
+
+    auto edgeCost = [&](const Node* first, const Node* second) -> float
+        {
+            if (useManhattanCosts)
+                return manhattanDistance(first, second);
+
+            return euclideanDistance(first, second);
         };
 
     std::vector<std::vector<float>> dist(
@@ -230,14 +258,6 @@ std::vector<glm::ivec3> Floyd_Warshall::search(
          * Diese Kosten können sich in späteren k-Iterationen
          * noch weiter verbessern.
          */
-        for (int i = 0; i < nodeCount; ++i)
-        {
-            Node* node = activeNodes[i];
-
-            node->gCost = dist[startIndex][i];
-            node->hCost = 0.0f;
-            node->fCost = dist[startIndex][i];
-        }
 
         for (int i = 0; i < nodeCount; ++i)
         {

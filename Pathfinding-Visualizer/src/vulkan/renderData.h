@@ -4,6 +4,7 @@
 #include <vulkan/vulkan.h>
 #include <GLFW/glfw3.h>
 
+// Headerdatei mit verwendeten Vulkanobjekten
 
 // Vulkan Instance & Device
 struct VulkanInstance {
@@ -29,7 +30,7 @@ struct VulkanRenderPass {
 	VkRenderPass	renderPass = VK_NULL_HANDLE;
 };
 
-// Descriptor Sets (for Uniform Buffers)
+// Descriptor Sets
 struct VulkanDescriptors {
 	VkDescriptorSetLayout	layout = VK_NULL_HANDLE;
 	VkDescriptorPool		pool = VK_NULL_HANDLE;
@@ -45,7 +46,6 @@ struct VulkanPipeline {
 	VkPipeline			connectionPipeline = VK_NULL_HANDLE;
 	VkPipeline			quadPipeline = VK_NULL_HANDLE;
 	VkPipeline			quadEdgePipeline = VK_NULL_HANDLE;
-//	VkPipeline			connection2DPipeline = VK_NULL_HANDLE;
 	VkPipeline			skyboxPipeline = VK_NULL_HANDLE;
 	VkViewport			viewport;
 	VkRect2D			scissor;
@@ -116,6 +116,7 @@ struct VulkanUniformBuffer {
 	VkDeviceMemory	memory = VK_NULL_HANDLE;
 };
 
+// Storage Buffer
 struct VulkanStorageBuffer {
 	VkBuffer		buffer = VK_NULL_HANDLE;
 	VkBuffer		bufferRight = VK_NULL_HANDLE;
@@ -129,6 +130,7 @@ struct VulkanCommandBuffers {
 	std::vector<VkCommandBuffer> commandBuffers;
 };
 
+// Vulkan Images
 struct VulkanImages {
 	VkImageView skyboxImageView;
 	VkSampler skyboxSampler;
@@ -136,13 +138,7 @@ struct VulkanImages {
 	VkDeviceMemory skyboxImageMemory;
 };
 
-struct BufferContext {
-	VkPhysicalDevice physicalDevice = VK_NULL_HANDLE;
-	VkDevice device = VK_NULL_HANDLE;
-	VkQueue graphicsQueue = VK_NULL_HANDLE;
-	VkCommandPool commandPool = VK_NULL_HANDLE;
-};
-
+// verwendete Objekte der angelegten Vulkanstrukturen
 struct RenderData {
 	GLFWwindow* window = nullptr;
 

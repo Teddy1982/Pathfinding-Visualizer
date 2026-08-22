@@ -2,6 +2,8 @@
 
 #include "pathfindingAlgorithm.h"
 
+// Floyd-Warshall-Algorithmus
+
 class Floyd_Warshall : public PathfindingAlgorithm {
 public:
     Floyd_Warshall();

@@ -19,6 +19,7 @@ RebindContext rebindContext;
 
 UserInterface::UserInterface(AppState& state, AlgoLogic& logicLeft, AlgoLogic& logicRight) : appState(state), algoLogicLeft(logicLeft), algoLogicRight(logicRight) {}
 
+// Initialisiert Benutzermenü 
 bool UserInterface::init(RenderData& renderData) {
   gControls.loadBindings();
 
@@ -140,6 +141,7 @@ bool UserInterface::init(RenderData& renderData) {
   return true;
 }
 
+// Erstellt Ansicht des Benutzermenüs
 void UserInterface::createFrame(RenderData& renderData) {
     ImGui_ImplVulkan_NewFrame();
     ImGui_ImplGlfw_NewFrame();
@@ -437,8 +439,9 @@ void UserInterface::createFrame(RenderData& renderData) {
     ImGui::SetNextWindowSize(ImVec2(200, 100));
 }
 
-
+// stellt alles zum Rendern des Benutzermenüs ein
 void UserInterface::render(RenderData& renderData, int commandBufferIndex) {
+    // Falls der Pfad des Algorithmus noch berechnet wird, erscheint dieses Fenster
     if (isThinking) {
         ImGui::SetNextWindowPos(thinkingWindowPos);
         ImGui::Begin("Berechnet Pfad...");
@@ -450,6 +453,7 @@ void UserInterface::render(RenderData& renderData, int commandBufferIndex) {
     ImGui_ImplVulkan_RenderDrawData(ImGui::GetDrawData(), renderData.commandBuffers.commandBuffers[commandBufferIndex]);
 }
 
+// Aufräumfunktion. Gibt Speicher von ImGui-Komponenten frei
 void UserInterface::cleanup(RenderData& renderData) {
     vkDestroyDescriptorPool(renderData.vkInst.device, renderData.imguiDescriptorPool, nullptr);
     ImGui_ImplVulkan_Shutdown();

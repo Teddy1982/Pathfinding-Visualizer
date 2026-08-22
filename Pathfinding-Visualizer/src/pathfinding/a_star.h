@@ -2,6 +2,8 @@
 
 #include "pathfindingAlgorithm.h"
 
+// A*-Algorithmus
+
 class A_Star : public PathfindingAlgorithm {
 public:
     A_Star();

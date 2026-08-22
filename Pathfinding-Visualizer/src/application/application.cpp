@@ -19,6 +19,7 @@ App::App() :
 {
 }
 
+// Initialisieren aller Würfel und Quadrate im 3D- und 2D-Grid mit einem Standardwert
 void App::initCubeColors() {
 	int gridZ = appState.zSize;
 	
@@ -52,6 +53,7 @@ void App::initCubeColors() {
 	}
 }
 
+// Löschen von Vertex-, Index- und Memorybuffer rund um das 3D- bzw. 2D-Grid
 void App::cleanupVertexBuffer() {
 	vkDestroyBuffer(renderData.vkInst.device, renderData.vertexBuffer.cubeVBuffer, nullptr);
 	vkFreeMemory(renderData.vkInst.device, renderData.vertexBuffer.cubeVMemory, nullptr);
@@ -108,6 +110,8 @@ void App::cleanupVertexBuffer() {
 	renderData.vertexBuffer.connectionIMemoryRight = VK_NULL_HANDLE;
 }
 
+// Aufräumfunktion beim Beenden der Anwendung
+// Alle Vulkan-, Speicher-, Kamera- sowie GLFW-Ressourcen werden freigegeben
 void App::cleanup() {
 	vkDestroyPipeline(renderData.vkInst.device, renderData.pipeline.cubePipeline, nullptr);
 	vkDestroyPipeline(renderData.vkInst.device, renderData.pipeline.cubeEdgePipeline, nullptr);
@@ -115,7 +119,6 @@ void App::cleanup() {
 
 	vkDestroyPipeline(renderData.vkInst.device, renderData.pipeline.quadPipeline, nullptr);
 	vkDestroyPipeline(renderData.vkInst.device, renderData.pipeline.quadEdgePipeline, nullptr);
-//	vkDestroyPipeline(renderData.vkInst.device, renderData.pipeline.connection2DPipeline, nullptr);
 
 	vkDestroyPipelineLayout(renderData.vkInst.device, renderData.pipeline.layout, nullptr);
 	vkDestroyRenderPass(renderData.vkInst.device, renderData.renderPass.renderPass, nullptr);
@@ -148,8 +151,11 @@ void App::cleanup() {
 	glfwTerminate();
 }
 
+// Start- und Initialisierungsfunktion 
 void App::init() {
-	// Initialize GLFW
+
+	//Initialisierung und Starten von GLFW-Komponenten
+
 	if (!glfwInit()) {
 		std::runtime_error("Failed to initialize GLFW!");
 	}
@@ -190,7 +196,8 @@ void App::init() {
 		glfwSetInputMode(renderData.window, GLFW_RAW_MOUSE_MOTION, GLFW_TRUE);
 	}
 
-	vulkanContext.createVulkanInstance(renderData.window);
+	// Erstellung und Initialisierung von Vulkankomponenten
+	vulkanContext.createVulkanInstance();
 	vulkanContext.createCommandPool();
 	vulkanContext.createSwapchain();
 	vulkanContext.createRenderPass();
@@ -205,11 +212,10 @@ void App::init() {
 
 	geometryBuilder.createSkybox();
 
-	//Cubed
+	// Erstellung von Vertexbuffern
 	bufferUtils.createVertexBuffer(renderData.vertexBuffer.cubeVBuffer, renderData.vertexBuffer.cubeIBuffer, renderData.vertexBuffer.cubeVMemory, renderData.vertexBuffer.cubeIMemory, (void*)geometryBuilder.cubeVertices.data(), sizeof(CubeVertex) * geometryBuilder.cubeVertices.size(), (void*)geometryBuilder.cubeIndices.data(), sizeof(uint32_t) * geometryBuilder.cubeIndices.size(), static_cast<uint32_t>(geometryBuilder.cubeIndices.size()));
 	bufferUtils.createVertexBuffer(renderData.vertexBuffer.cubeEdgeVBuffer, renderData.vertexBuffer.cubeEdgeIBuffer, renderData.vertexBuffer.cubeEdgeVMemory, renderData.vertexBuffer.cubeEdgeIMemory, (void*)geometryBuilder.cubeEdgeVertices.data(), sizeof(CubeEdgeVertex) * geometryBuilder.cubeEdgeVertices.size(), (void*)geometryBuilder.cubeEdgeIndices.data(), sizeof(uint32_t) * geometryBuilder.cubeEdgeIndices.size(), static_cast<uint32_t>(geometryBuilder.cubeEdgeIndices.size()));
 
-	//Quad
 	bufferUtils.createVertexBuffer(renderData.vertexBuffer.quadVBuffer, renderData.vertexBuffer.quadIBuffer, renderData.vertexBuffer.quadVMemory, renderData.vertexBuffer.quadIMemory, (void*)geometryBuilder.quadVertices.data(), sizeof(QuadVertex) * geometryBuilder.quadVertices.size(), (void*)geometryBuilder.quadIndices.data(), sizeof(uint32_t) * geometryBuilder.quadIndices.size(), static_cast<uint32_t>(geometryBuilder.quadIndices.size()));
 	bufferUtils.createVertexBuffer(renderData.vertexBuffer.quadEdgeVBuffer, renderData.vertexBuffer.quadEdgeIBuffer, renderData.vertexBuffer.quadEdgeVMemory, renderData.vertexBuffer.quadEdgeIMemory, (void*)geometryBuilder.quadEdgeVertices.data(), sizeof(QuadEdgeVertex) * geometryBuilder.quadEdgeVertices.size(), (void*)geometryBuilder.quadEdgeIndices.data(), sizeof(uint32_t) * geometryBuilder.quadEdgeIndices.size(), static_cast<uint32_t>(geometryBuilder.quadEdgeIndices.size()));
 
@@ -233,6 +239,7 @@ void App::init() {
 	algoLogicRight.initArray(userInterface.xSize, userInterface.ySize, userInterface.zSize);
 }
 
+// Hauptschleife der Anwendung
 void App::loop() {
 	while (!glfwWindowShouldClose(renderData.window)) {
 		glfwPollEvents();
@@ -242,12 +249,14 @@ void App::loop() {
 
 		userInterface.thinkingWindowPos = ImVec2(renderData.swapchain.extent.width / 2 - 100, renderData.swapchain.extent.height / 2 - 50);
 
-		inputHandler.handleMovementKeys(renderData.window);
+		inputHandler.handleKeys(renderData.window);
 
 		if (!appState.draw3D) {
 			appState.selZ = 0;
 		}
 
+		// falls Einstellung der Suchrichtungen sich ändert oder der Suchraum initialisiert werden soll
+		// Leeren und Neuinitialisierung des 2D- und 3D-Grids
 		if (appState.lastSearchDirections != userInterface.searchDirections || appState.initArray == true) {
 			int gridZ = appState.zSize;
 
@@ -316,6 +325,7 @@ void App::loop() {
 			appState.lastSearchDirections = userInterface.searchDirections;
 		}
 
+		// Falls keine offenen oder bearbeiteten Knoten existieren sollen die Bewertungsinformationen auf den Standardwert gesetzt werden
 		appState.selectedCubeId = glm::vec3((float)appState.selX, (float)appState.selY, (float)appState.selZ);
 		if (algoLogicLeft.nodes.size() == 0 && algoLogicRight.nodes.size() == 0) {
 			userInterface.f_costs_left = 0.0f;
@@ -332,6 +342,7 @@ void App::loop() {
 			userInterface.step_right = 0;
 		}
 		
+		// Anzeigen der Bwertungsinformationen des ausgewählten Knotens für die linke und rechte Algorithmusansicht
 		int idx = gridVisualizer.toIndex(appState.selectedCubeId.x, appState.selectedCubeId.y, appState.selectedCubeId.z);
 		if (idx < algoLogicLeft.nodes.size()) {
 			userInterface.f_costs_left = algoLogicLeft.nodes[idx].fCost;
@@ -350,10 +361,12 @@ void App::loop() {
 			userInterface.step_right = algoLogicRight.nodes[idx].step + 1;
 		}
 
+		// Falls Aktion-Taste gedrückt wurde, rufe entsprechende Funktion im Controller auf
 		if (inputHandler.action) {
 			gridController.doAction();
 		}
 
+		// Animationseinstellungen falls Wiedergabe der Suche aktiviert wurde
 		if (userInterface.settings == SET_SEARCH_PATH_PLAY)
 		{
 			static float elapsedTime = 0.0f;

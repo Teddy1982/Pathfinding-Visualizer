@@ -2,6 +2,8 @@
 
 #include "pathfindingAlgorithm.h"
 
+// Dijkstra-Algorithmus
+
 class Dijkstra : public PathfindingAlgorithm {
 public:
     Dijkstra();

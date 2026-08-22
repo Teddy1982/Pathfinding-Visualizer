@@ -38,6 +38,40 @@ std::vector<glm::ivec3> Bellman_Ford::search(
     const float infinity = std::numeric_limits<float>::infinity();
     constexpr float epsilon = 0.00001f;
 
+    if (searchDirections == SEARCH_4_DIRECTIONS ||
+        searchDirections == SEARCH_6_DIRECTIONS)
+    {
+        logic.heuristicMode = MANHATTAN_DISTANCE;
+    }
+    else
+    {
+        logic.heuristicMode = EUCLID_DISTANCE;
+    }
+
+    auto manhattanDistance =
+        [](const Node* first, const Node* second) -> float
+        {
+            return static_cast<float>(
+                std::abs(first->x - second->x) +
+                std::abs(first->y - second->y) +
+                std::abs(first->z - second->z)
+                );
+        };
+
+    auto euclideanDistance =
+        [](const Node* first, const Node* second) -> float
+        {
+            const float dx =
+                static_cast<float>(first->x - second->x);
+            const float dy =
+                static_cast<float>(first->y - second->y);
+            const float dz =
+                static_cast<float>(first->z - second->z);
+
+            return std::sqrt(dx * dx + dy * dy + dz * dz);
+        };
+
+
     std::vector<Node*> activeNodes;
 
     // Knoten zurücksetzen und aktive Knoten sammeln
@@ -81,13 +115,12 @@ std::vector<glm::ivec3> Bellman_Ford::search(
         return path;
     }
 
-    auto edgeCost = [](const Node* from, const Node* to) -> float
+    auto edgeCost = [&](const Node* from, const Node* to) -> float
         {
-            const float dx = static_cast<float>(from->x - to->x);
-            const float dy = static_cast<float>(from->y - to->y);
-            const float dz = static_cast<float>(from->z - to->z);
+            if (logic.heuristicMode == MANHATTAN_DISTANCE)
+                return manhattanDistance(from, to);
 
-            return std::sqrt(dx * dx + dy * dy + dz * dz);
+            return euclideanDistance(from, to);
         };
 
     nodeStart->gCost = 0.0f;

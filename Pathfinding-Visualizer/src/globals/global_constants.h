@@ -2,6 +2,8 @@
 
 #include <array>
 
+// Sammlung von Konstantenwerten 
+
 const int CLOSED_NODE = 1;
 const int OPEN_NODE = 2;
 const int CURRENT_NODE = 3;

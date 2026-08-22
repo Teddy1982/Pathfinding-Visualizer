@@ -8,6 +8,7 @@
 
 ImageUtils::ImageUtils(RenderData& rData) : renderData(rData) {}
 
+// Erstellen der Bilderansicht für einen Würfel (Skybox)
 VkImageView ImageUtils::createCubeImageView(VkImage image, VkFormat format) {
 	VkImageViewCreateInfo viewInfo{};
 	viewInfo.sType = VK_STRUCTURE_TYPE_IMAGE_VIEW_CREATE_INFO;
@@ -28,6 +29,7 @@ VkImageView ImageUtils::createCubeImageView(VkImage image, VkFormat format) {
 	return imageView;
 }
 
+// Erstellt eine 2D-Image-View für den Zugriff auf ein Vulkan-Image
 VkImageView ImageUtils::createImageView(VkImage image, VkFormat format, VkImageAspectFlags aspectFlags)
 {
 	VkImageViewCreateInfo viewInfo{};
@@ -35,6 +37,8 @@ VkImageView ImageUtils::createImageView(VkImage image, VkFormat format, VkImageA
 	viewInfo.image = image;
 	viewInfo.viewType = VK_IMAGE_VIEW_TYPE_2D;
 	viewInfo.format = format;
+	
+	// Legt den sichtbaren Bereich des Images fest
 	viewInfo.subresourceRange.aspectMask = aspectFlags;
 	viewInfo.subresourceRange.baseMipLevel = 0;
 	viewInfo.subresourceRange.levelCount = 1;
@@ -49,6 +53,7 @@ VkImageView ImageUtils::createImageView(VkImage image, VkFormat format, VkImageA
 	return imageView;
 }
 
+// Erstellt ein Cube-Image mit sechs Ebenen und weist ihm GPU-Speicher zu
 void ImageUtils::createCubeImage(uint32_t width, uint32_t height, VkFormat format, VkImageTiling tiling, VkImageUsageFlags usage, VkMemoryPropertyFlags properties, VkImage& image, VkDeviceMemory& imageMemory) {
 	VkImageCreateInfo imageInfo{};
 	imageInfo.sType = VK_STRUCTURE_TYPE_IMAGE_CREATE_INFO;
@@ -58,7 +63,10 @@ void ImageUtils::createCubeImage(uint32_t width, uint32_t height, VkFormat forma
 	imageInfo.extent.height = height;
 	imageInfo.extent.depth = 1;
 	imageInfo.mipLevels = 1;
+	
+	// Ein Cube-Image besteht aus sechs Bildebenen
 	imageInfo.arrayLayers = 6;
+
 	imageInfo.format = format;
 	imageInfo.tiling = tiling;
 	imageInfo.initialLayout = VK_IMAGE_LAYOUT_UNDEFINED;
@@ -70,9 +78,11 @@ void ImageUtils::createCubeImage(uint32_t width, uint32_t height, VkFormat forma
 		throw std::runtime_error("Failed to create cube image!");
 	}
 
+	// Ermittelt den Speicherbedarf des Images
 	VkMemoryRequirements memRequirements;
 	vkGetImageMemoryRequirements(renderData.vkInst.device, image, &memRequirements);
 
+	// Reserviert einen geeigneten Speicherbereich
 	VkMemoryAllocateInfo allocInfo{};
 	allocInfo.sType = VK_STRUCTURE_TYPE_MEMORY_ALLOCATE_INFO;
 	allocInfo.allocationSize = memRequirements.size;
@@ -85,6 +95,7 @@ void ImageUtils::createCubeImage(uint32_t width, uint32_t height, VkFormat forma
 	vkBindImageMemory(renderData.vkInst.device, image, imageMemory, 0);
 }
 
+// Erstellt ein zweidimensionales Vulkan-Image und weist ihm GPU-Speicher zu
 void ImageUtils::createImage(uint32_t width, uint32_t height, VkFormat format, VkImageTiling tiling, VkImageUsageFlags usage, VkMemoryPropertyFlags properties, VkImage& image, VkDeviceMemory& imageMemory)
 {
 	VkImageCreateInfo imageInfo{};
@@ -126,6 +137,7 @@ void ImageUtils::createImage(uint32_t width, uint32_t height, VkFormat format, V
 	vkBindImageMemory(renderData.vkInst.device, image, imageMemory, 0);
 }
 
+// Ändert das Speicherlayout eines zweidimensionalen Images
 void ImageUtils::transitionImageLayout(VkImage image, VkFormat format, VkImageLayout oldLayout,	VkImageLayout newLayout) {
 	VkCommandBuffer commandBuffer = helperFunctions.beginSingleTimeCommands(renderData.commandBuffers.commandPool, renderData.vkInst.device);
 
@@ -137,7 +149,6 @@ void ImageUtils::transitionImageLayout(VkImage image, VkFormat format, VkImageLa
 	barrier.dstQueueFamilyIndex = VK_QUEUE_FAMILY_IGNORED;
 	barrier.image = image;
 
-	// In deinem Fall: normale Farbtextur
 	barrier.subresourceRange.aspectMask = VK_IMAGE_ASPECT_COLOR_BIT;
 	barrier.subresourceRange.baseMipLevel = 0;
 	barrier.subresourceRange.levelCount = 1;
@@ -150,7 +161,6 @@ void ImageUtils::transitionImageLayout(VkImage image, VkFormat format, VkImageLa
 	if (oldLayout == VK_IMAGE_LAYOUT_UNDEFINED &&
 		newLayout == VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL)
 	{
-		// Bild war vorher uninitialisiert
 		barrier.srcAccessMask = 0;
 		barrier.dstAccessMask = VK_ACCESS_TRANSFER_WRITE_BIT;
 
@@ -160,7 +170,6 @@ void ImageUtils::transitionImageLayout(VkImage image, VkFormat format, VkImageLa
 	else if (oldLayout == VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL &&
 		newLayout == VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL)
 	{
-		// Transfer muss abgeschlossen sein, bevor der Shader liest
 		barrier.srcAccessMask = VK_ACCESS_TRANSFER_WRITE_BIT;
 		barrier.dstAccessMask = VK_ACCESS_SHADER_READ_BIT;
 
@@ -185,6 +194,7 @@ void ImageUtils::transitionImageLayout(VkImage image, VkFormat format, VkImageLa
 	helperFunctions.endSingleTimeCommands(commandBuffer,renderData.vkInst.graphicsQueue, renderData.vkInst.device, renderData.commandBuffers.commandPool);
 }
 
+// Kopiert die sechs Bildflächen eines Buffers in ein Cube-Image
 void ImageUtils::copyBufferToCubeImage(VkBuffer buffer,	VkImage image, uint32_t width, uint32_t height) {
 	std::array<VkBufferImageCopy, 6> regions{};
 
@@ -218,6 +228,7 @@ void ImageUtils::copyBufferToCubeImage(VkBuffer buffer,	VkImage image, uint32_t 
 	helperFunctions.endSingleTimeCommands(commandBuffer, renderData.vkInst.graphicsQueue, renderData.vkInst.device, renderData.commandBuffers.commandPool);
 }
 
+// Ändert das Speicherlayout aller sechs Ebenen eines Cube-Images
 void ImageUtils::transitionCubeImageLayout(VkImage image, VkFormat format, VkImageLayout oldLayout,	VkImageLayout newLayout) {
 	VkCommandBuffer commandBuffer = helperFunctions.beginSingleTimeCommands(renderData.commandBuffers.commandPool, renderData.vkInst.device);
 
@@ -229,7 +240,6 @@ void ImageUtils::transitionCubeImageLayout(VkImage image, VkFormat format, VkIma
 	barrier.dstQueueFamilyIndex = VK_QUEUE_FAMILY_IGNORED;
 	barrier.image = image;
 
-	// In deinem Fall: normale Farbtextur
 	barrier.subresourceRange.aspectMask = VK_IMAGE_ASPECT_COLOR_BIT;
 	barrier.subresourceRange.baseMipLevel = 0;
 	barrier.subresourceRange.levelCount = 1;
@@ -242,7 +252,6 @@ void ImageUtils::transitionCubeImageLayout(VkImage image, VkFormat format, VkIma
 	if (oldLayout == VK_IMAGE_LAYOUT_UNDEFINED &&
 		newLayout == VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL)
 	{
-		// Bild war vorher uninitialisiert
 		barrier.srcAccessMask = 0;
 		barrier.dstAccessMask = VK_ACCESS_TRANSFER_WRITE_BIT;
 
@@ -252,7 +261,6 @@ void ImageUtils::transitionCubeImageLayout(VkImage image, VkFormat format, VkIma
 	else if (oldLayout == VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL &&
 		newLayout == VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL)
 	{
-		// Transfer muss abgeschlossen sein, bevor der Shader liest
 		barrier.srcAccessMask = VK_ACCESS_TRANSFER_WRITE_BIT;
 		barrier.dstAccessMask = VK_ACCESS_SHADER_READ_BIT;
 
@@ -277,6 +285,7 @@ void ImageUtils::transitionCubeImageLayout(VkImage image, VkFormat format, VkIma
 	helperFunctions.endSingleTimeCommands(commandBuffer,renderData.vkInst.graphicsQueue, renderData.vkInst.device, renderData.commandBuffers.commandPool);
 }
 
+// Kopiert die Bilddaten eines Buffers in ein zweidimensionales Image
 void ImageUtils::copyBufferToImage(VkBuffer buffer,	VkImage image, uint32_t width, uint32_t height) {
 	VkCommandBuffer commandBuffer = helperFunctions.beginSingleTimeCommands(renderData.commandBuffers.commandPool, renderData.vkInst.device);
 
@@ -309,6 +318,7 @@ void ImageUtils::copyBufferToImage(VkBuffer buffer,	VkImage image, uint32_t widt
 	helperFunctions.endSingleTimeCommands(commandBuffer, renderData.vkInst.graphicsQueue, renderData.vkInst.device, renderData.commandBuffers.commandPool);
 }
 
+// Lädt die Skybox-Textur und erstellt daraus ein verwendbares Vulkan-Cubemap-Image
 void ImageUtils::createSkyboxTexture() {
 	int imgWidth, imgHeight, imgChannels;
 	unsigned char* imageData = stbi_load(
@@ -323,6 +333,7 @@ void ImageUtils::createSkyboxTexture() {
 		throw std::runtime_error("Failed to load skybox texture!");
 	}
 
+	// Prüft, ob das Bild im erwarteten 4×3-Cubemap-Format vorliegt
 	const uint32_t faceSize = imgWidth / 4;
 
 	if (imgWidth != faceSize * 4 || imgHeight != faceSize * 3) {
@@ -332,6 +343,7 @@ void ImageUtils::createSkyboxTexture() {
 	const VkDeviceSize faceImageSize = faceSize * faceSize * 4;
 	const VkDeviceSize imageSize = faceImageSize * 6;
 
+	// Erstellt einen CPU-seitig beschreibbaren Staging Buffer
 	VkBuffer stagingBuffer;
 	VkDeviceMemory stagingBufferMemory;
 
@@ -343,6 +355,8 @@ void ImageUtils::createSkyboxTexture() {
 		stagingBufferMemory
 	);
 
+	// Kopiert die sechs Flächen aus dem Kreuzlayout hintereinander
+    // in den Staging Buffer
 	void* data;
 	vkMapMemory(renderData.vkInst.device, stagingBufferMemory, 0, imageSize, 0, &data);
 
@@ -365,6 +379,7 @@ void ImageUtils::createSkyboxTexture() {
 	vkUnmapMemory(renderData.vkInst.device, stagingBufferMemory);
 	stbi_image_free(imageData);
 
+	// Erstellt das endgültige Cube-Image im GPU-Speicher
 	createCubeImage(
 		faceSize,
 		faceSize,
@@ -376,6 +391,7 @@ void ImageUtils::createSkyboxTexture() {
 		renderData.images.skyboxImageMemory
 	);
 
+	// Bereitet das Image für den Datentransfer vor
 	transitionCubeImageLayout(
 		renderData.images.skyboxImage,
 		VK_FORMAT_R8G8B8A8_SRGB,
@@ -383,6 +399,7 @@ void ImageUtils::createSkyboxTexture() {
 		VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL
 	);
 
+	// Überträgt die sechs Flächen in das Cube-Image
 	copyBufferToCubeImage(
 		stagingBuffer,
 		renderData.images.skyboxImage,
@@ -390,6 +407,7 @@ void ImageUtils::createSkyboxTexture() {
 		faceSize
 	);
 
+	// Bereitet die Cubemap für den Zugriff im Shader vor
 	transitionCubeImageLayout(
 		renderData.images.skyboxImage,
 		VK_FORMAT_R8G8B8A8_SRGB,
@@ -397,9 +415,11 @@ void ImageUtils::createSkyboxTexture() {
 		VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL
 	);
 
+	// Der temporäre Staging Buffer wird nicht mehr benötigt
 	vkDestroyBuffer(renderData.vkInst.device, stagingBuffer, nullptr);
 	vkFreeMemory(renderData.vkInst.device, stagingBufferMemory, nullptr);
 
+	// Erstellt die Image-View und den Sampler für den Shaderzugriff
 	renderData.images.skyboxImageView = createCubeImageView(
 		renderData.images.skyboxImage,
 		VK_FORMAT_R8G8B8A8_SRGB
@@ -424,8 +444,9 @@ void ImageUtils::createSkyboxTexture() {
 	}
 }
 
+// Erstellt einen Vulkan-Buffer, reserviert geeigneten Speicher
+// und verknüpft beide Objekte miteinander
 void ImageUtils::createBuffer(VkDeviceSize size, VkBufferUsageFlags usage, VkMemoryPropertyFlags properties, VkBuffer& buffer, VkDeviceMemory& bufferMemory) {
-	// Step 1: Create the Vulkan buffer
 	VkBufferCreateInfo bufferCreateInfo{};
 	bufferCreateInfo.sType = VK_STRUCTURE_TYPE_BUFFER_CREATE_INFO;
 	bufferCreateInfo.size = size;
@@ -436,7 +457,6 @@ void ImageUtils::createBuffer(VkDeviceSize size, VkBufferUsageFlags usage, VkMem
 		throw std::runtime_error("Failed to create buffer!");
 	}
 
-	// Step 2: Allocate memory for the buffer
 	VkMemoryRequirements memRequirements;
 	vkGetBufferMemoryRequirements(renderData.vkInst.device, buffer, &memRequirements);
 
@@ -449,7 +469,6 @@ void ImageUtils::createBuffer(VkDeviceSize size, VkBufferUsageFlags usage, VkMem
 		throw std::runtime_error("Failed to allocate buffer memory!");
 	}
 
-	// Step 3: Bind the buffer to the allocated memory
 	if (vkBindBufferMemory(renderData.vkInst.device, buffer, bufferMemory, 0) != VK_SUCCESS) {
 		throw std::runtime_error("Failed to bind buffer memory!");
 	}

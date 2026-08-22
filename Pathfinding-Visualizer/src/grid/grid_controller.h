@@ -10,6 +10,8 @@ class UserInterface;
 struct AppState;
 class Renderer;
 
+// Klasse dient als Controller für Optionen aus Untermenü Aktionen aus dem Benutermenü
+
 class GridController {
 public:
 	GridController(GridVisualizer& visualizer, UserInterface& ui, AlgoLogic& logicLeft, AlgoLogic& logicRight, InputHandler& handler, Renderer& rndr, AppState& state);

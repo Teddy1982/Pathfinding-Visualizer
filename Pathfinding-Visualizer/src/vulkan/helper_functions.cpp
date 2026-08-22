@@ -2,23 +2,24 @@
 #include <stdexcept>
 #include <fstream>
 
-// Helper function to find a suitable memory type for a buffer
+// Hilfsfunktion zum Finden eines passenden Speichertyp für einen Buffer
 uint32_t HelperFunctions::findMemoryType(uint32_t typeFilter, VkMemoryPropertyFlags properties, VkPhysicalDevice physicalDevice) {
 	VkPhysicalDeviceMemoryProperties memoryProperties;
 	vkGetPhysicalDeviceMemoryProperties(physicalDevice, &memoryProperties);
 
-	// Iterate over the memory types to find the correct one
+	// Iterieren über die Speichertypen um den richtigen zu finden
 	for (uint32_t i = 0; i < memoryProperties.memoryTypeCount; i++) {
-		// Check if the memory type is suitable (typeFilter matches and has the requested properties)
 		if ((typeFilter & (1 << i)) && (memoryProperties.memoryTypes[i].propertyFlags & properties) == properties) {
-			return i; // Return the index of the suitable memory type
+			return i; 
 		}
 	}
 
-	// if no suitable memory type was found, throw an error
+	// wenn kein passender Speichertyp gefunden wurde, wirf einen Fehler
 	throw std::runtime_error("Failed to find suitable memory type!");
 }
 
+// Erstellt einen temporären Command Buffer und beginnt dessen
+// einmalige Aufzeichnung.
 VkCommandBuffer HelperFunctions::beginSingleTimeCommands(VkCommandPool commandPool, VkDevice device)
 {
 	VkCommandBufferAllocateInfo allocInfo{};
@@ -43,6 +44,8 @@ VkCommandBuffer HelperFunctions::beginSingleTimeCommands(VkCommandPool commandPo
 	return commandBuffer;
 }
 
+// Beendet und übermittelt einen temporären Command Buffer,
+// wartet auf dessen Ausführung und gibt ihn anschließend frei.
 void HelperFunctions::endSingleTimeCommands(VkCommandBuffer commandBuffer, VkQueue graphicsQueue, VkDevice device, VkCommandPool commandPool)
 {
 	if (vkEndCommandBuffer(commandBuffer) != VK_SUCCESS) {
@@ -63,7 +66,7 @@ void HelperFunctions::endSingleTimeCommands(VkCommandBuffer commandBuffer, VkQue
 	vkFreeCommandBuffers(device, commandPool, 1, &commandBuffer);
 }
 
-// Utility function to read a file into a vector type of bytes
+// Hilfsfunktion zum Lesen einer Datei in einen Vectortyp aus Bytes
 std::vector<char> HelperFunctions::readFile(const std::string& filename) {
 	std::ifstream file(filename, std::ios::binary | std::ios::ate);
 	if (!file.is_open()) {
@@ -79,12 +82,12 @@ std::vector<char> HelperFunctions::readFile(const std::string& filename) {
 	return buffer;
 }
 
-// Function to create a Vulkan shader module
+// Funktion zum Erstellen eines Shader Modules
 VkShaderModule HelperFunctions::createShaderModule(VkDevice device, const std::string& filename) {
-	// Read the shader file into a byte vector
+	// Einlesen einer Shaderdatei in einen Vector aus Bytes
 	std::vector<char> code = readFile(filename);
 
-	// Create shader module create info structure
+	// Erstellen des Shadermodules
 	VkShaderModuleCreateInfo createInfo{};
 	createInfo.sType = VK_STRUCTURE_TYPE_SHADER_MODULE_CREATE_INFO;
 	createInfo.codeSize = code.size();

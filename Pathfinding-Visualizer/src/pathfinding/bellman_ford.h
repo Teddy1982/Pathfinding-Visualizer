@@ -2,6 +2,8 @@
 
 #include "pathfindingAlgorithm.h"
 
+//Bellman-Ford Algorithmus
+
 class Bellman_Ford : public PathfindingAlgorithm {
 public:
     Bellman_Ford();

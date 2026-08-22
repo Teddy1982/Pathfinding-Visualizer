@@ -10,6 +10,7 @@ double InputHandler::lastMouseY = 0.0;
 
 InputHandler::InputHandler(AppState& state) : appState(state) {}
 
+// behandelt Mauseingaben für Kamerarotationen
 void InputHandler::mouse_callback(GLFWwindow* window, double xpos, double ypos) {
 	if (!cameraMouseActive) return;
 
@@ -34,6 +35,7 @@ void InputHandler::mouse_callback(GLFWwindow* window, double xpos, double ypos) 
 	}
 }
 
+// versteckt Mauszeiger bei Betätigung der rechten Maustaste
 void InputHandler::mouse_button_callback(GLFWwindow* window, int button, int action, int mods) {
 	if (button == GLFW_MOUSE_BUTTON_RIGHT) {
 		if (action == GLFW_PRESS) {
@@ -56,7 +58,8 @@ void InputHandler::mouse_button_callback(GLFWwindow* window, int button, int act
 	}
 }
 
-void InputHandler::handleMovementKeys(GLFWwindow* window) {
+// behandelt Tastatureingaben
+void InputHandler::handleKeys(GLFWwindow* window) {
 	gControls.update(window);
 	const InputState& input = gControls.getInputState();
 
@@ -147,6 +150,7 @@ void InputHandler::handleMovementKeys(GLFWwindow* window) {
 	gControls.clearFrameTriggers();
 }
 
+// behandelt Aktivierungszustand der Tasten
 void InputHandler::handleKeyEvents(GLFWwindow* window, int key, int scancode, int action, int mods) {
 	if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS) {
 		showMenu = !showMenu;

@@ -2,6 +2,8 @@
 
 #include "pathfindingAlgorithm.h"
 
+// Fringe-Search-Algorithmus
+
 class Fringe_Search : public PathfindingAlgorithm {
 public:
     Fringe_Search();

@@ -1,3 +1,5 @@
+// cpp.Datei enthält Bindungs- und Attributdateien der Vertexklasse für einen Würfel für die Vulkan-Grafik-Pipeline
+
 #include "cube_vertex.h"
 
 VkVertexInputBindingDescription CubeVertex::getBindingDescription() {

@@ -1,5 +1,6 @@
 #include "geometry_builder.h"
 
+// Erstellung der Geometrie für einen Würfel in der 3D-Darstellung
 void GeometryBuilder::createUnitCube(int xId, int yId, int zId) {
 
 	// Cube vertex positions
@@ -50,6 +51,7 @@ void GeometryBuilder::createUnitCube(int xId, int yId, int zId) {
 	}
 };
 
+// Erstellung der Geometrie für die Aussenkanten eines Würfels in der 3D-Darstellung
 void GeometryBuilder::createCubeEdges(float xId, float yId, float zId) {
 	float positions[8][3] = {
 		{-0.495f, -0.495f, -0.495f}, {0.495f, -0.495f, -0.495f}, {0.495f, 0.495f, -0.495f}, {-0.495f, 0.495f, -0.495f}, // Back
@@ -77,6 +79,8 @@ void GeometryBuilder::createCubeEdges(float xId, float yId, float zId) {
 	}
 };
 
+// Erstellung der Geometrie für die Pfadverbindungslinien in der 2D- sowie 3D-Darstellung
+// entweder für die linke oder rechte Algorithmusansicht
 void GeometryBuilder::createPathConnection(glm::vec3 a, glm::vec3 b, float thickness, bool isLeftViewport) {
 	glm::vec3 forward = b - a;
 	float length = glm::length(forward);
@@ -160,6 +164,7 @@ void GeometryBuilder::createPathConnection(glm::vec3 a, glm::vec3 b, float thick
 	}
 }
 
+// Zusammenbau der Geometrie für eine SkyBox
 void GeometryBuilder::createSkybox() {
 	skyboxVertices = {
 		// 0
@@ -214,6 +219,7 @@ void GeometryBuilder::createSkybox() {
 	};
 }
 
+// Initialsierung der Daten für die Pfadverbindungslinien und Anweisung der Geometrieerstellung der Verbindungslinien anhand der Pfaddaten
 void GeometryBuilder::rebuildPathGeometry(const std::vector<glm::ivec3>& path, bool isLeftViewport) {
 	if (isLeftViewport) {
 		connectionVerticesLeft.clear();
@@ -234,6 +240,7 @@ void GeometryBuilder::rebuildPathGeometry(const std::vector<glm::ivec3>& path, b
 // 2D-VERTEXSTRUCTS
 //########################################################################################################
 
+// Erstellung der Geometrie für ein Quadrat in der 2D-Darstellung
 void GeometryBuilder::createUnitQuad(int xId, int yId)
 {
 	constexpr float halfSize = 0.49f;
@@ -276,6 +283,8 @@ void GeometryBuilder::createUnitQuad(int xId, int yId)
 		}
 	);
 }
+
+// Erstellung der Geometrie für die Aussenkanten eines Quadrats in der 2D-Darstellung
 void GeometryBuilder::createQuadEdges(float xId, float yId) {
 	constexpr float halfSize = 0.495f;
 

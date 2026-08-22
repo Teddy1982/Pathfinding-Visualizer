@@ -8,6 +8,8 @@ class AlgoLogic;
 class GeometryBuilder;
 struct AppState;
 
+// zuständig für Visualiserung von Knoten und deren Zuständen
+
 class GridVisualizer {
 public:
 

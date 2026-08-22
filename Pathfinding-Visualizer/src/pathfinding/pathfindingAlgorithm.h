@@ -6,6 +6,8 @@
 
 class AlgoLogic;
 
+// Oberklasse für Pfadfindungsalgorithmen
+
 class PathfindingAlgorithm {
 public:
     explicit PathfindingAlgorithm(const std::string& t)

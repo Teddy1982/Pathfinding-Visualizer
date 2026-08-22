@@ -16,7 +16,8 @@
 #include "../pathfinding/algoLogic.h"
 #include "app_state.h"
 
-
+// Hauptklasse der Anwendung, enthält wichtigsten Klassen
+// und Funktion zur Initialisierung, Hauptschleife und Aufräumfunktion
 class App {
 public:
 	App();

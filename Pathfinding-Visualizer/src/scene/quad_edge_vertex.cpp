@@ -1,3 +1,5 @@
+// cpp.Datei enthält Bindungs- und Attributdateien der Vertexklasse für die Aussenkanten eines Quadrats für die Vulkan-Grafik-Pipeline
+
 #include "quad_edge_vertex.h"
 
 VkVertexInputBindingDescription QuadEdgeVertex::getBindingDescription() {

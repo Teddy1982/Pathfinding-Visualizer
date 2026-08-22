@@ -4,6 +4,7 @@
 #include <string>
 #include <vector>
 
+// Klasse mit Hilfsfunktionen
 class HelperFunctions {
 public:
 	uint32_t findMemoryType(uint32_t typeFilter, VkMemoryPropertyFlags properties, VkPhysicalDevice physicalDevice);

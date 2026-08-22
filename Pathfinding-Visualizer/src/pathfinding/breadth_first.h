@@ -2,6 +2,8 @@
 
 #include "pathfindingAlgorithm.h"
 
+// Breadth-First-ALgorithmus
+
 class Breadth_First : public PathfindingAlgorithm {
 public:
     Breadth_First();

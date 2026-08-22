@@ -1,7 +1,7 @@
 #include "ui_command_buffer.h"
 #include "../tools/logger.h"
 
-
+// Initialisiert CommandBuffer für das Benutzermenü (ImGui)
 bool CommandBuffer::init(RenderData &renderData, VkCommandBuffer &commandBuffer) {
   VkCommandBufferAllocateInfo bufferAllocInfo{};
   bufferAllocInfo.sType = VK_STRUCTURE_TYPE_COMMAND_BUFFER_ALLOCATE_INFO;
@@ -17,6 +17,7 @@ bool CommandBuffer::init(RenderData &renderData, VkCommandBuffer &commandBuffer)
   return true;
 }
 
+// gibt Speicher für CommandBuffer frei
 void CommandBuffer::cleanup(RenderData &renderData, VkCommandBuffer &commandBuffer) {
   vkFreeCommandBuffers(renderData.vkInst.device, renderData.commandBuffers.commandPool, 1, &commandBuffer);
 }

@@ -10,6 +10,7 @@
 #include "quad_vertex.h"
 #include "quad_edge_vertex.h"
 
+// Klasse für Erstellung von geometrischen Objekten anhand ihrer Vertexklassen
 class GeometryBuilder {
 public:
 	std::vector<CubeVertex> cubeVertices;

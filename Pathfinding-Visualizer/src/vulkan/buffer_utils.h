@@ -8,6 +8,7 @@
 
 struct AppState;
 
+// Klasse mit Funktionen rund um Buffers (Puffer)
 class BufferUtils {
 public:
 

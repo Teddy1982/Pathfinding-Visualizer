@@ -7,6 +7,7 @@
 #include "../vulkan/renderData.h"
 #include "../application/app_state.h"
 
+// globale Variablen Steuerung, Kamera und Framezeiten
 extern Controls gControls;
 extern RebindContext rebindContext;
 
@@ -19,12 +20,13 @@ extern float lastFrame;
 class Camera;
 class InputHandler;
 
+//Struktur für glfw-Funktionen
 struct AppContext {
 	Camera* camera;
 	InputHandler* inputHandler;
 };
 
-
+//Klasse für Benutzereingabenverwaltung
 class InputHandler {
 public:
 
@@ -37,7 +39,7 @@ public:
 	static void mouse_callback(GLFWwindow* window, double xpos, double ypos);
 	static void mouse_button_callback(GLFWwindow* window, int button, int action, int mods);
 
-	void handleMovementKeys(GLFWwindow* window);
+	void handleKeys(GLFWwindow* window);
 	void handleKeyEvents(GLFWwindow* window, int key, int scancode, int action, int mods);
 	
 private:

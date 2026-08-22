@@ -7,6 +7,7 @@
 
 class RenderData;
 
+// Klasse mit Funktionen rund um die Bildverarbeitung
 class ImageUtils {
 public:
 	ImageUtils(RenderData& rData);

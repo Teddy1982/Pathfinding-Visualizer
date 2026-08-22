@@ -8,6 +8,7 @@ class GeometryBuilder;
 class UserInterface;
 struct AppState;
 
+// Rendererklasse
 class Renderer {
 public:
 	Renderer();

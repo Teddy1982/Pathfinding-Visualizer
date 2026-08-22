@@ -1,16 +1,13 @@
-/* simple Logger class */
-
 #pragma once
 #include <cstdio>
 
+// Loggerklasse mit Leveleinstellungsmöglichkeiten für die Ausgabe von Informationen
 class Logger {
   public:
-    /* log if input log level is equal or smaller to log level set */
     template <typename... Args>
     static void log(unsigned int logLevel, Args ... args) {
       if (logLevel <= mLogLevel) {
         std::printf(args ...);
-        /* force output, i.e. for Eclipse */
         std::fflush(stdout);
       }
     }

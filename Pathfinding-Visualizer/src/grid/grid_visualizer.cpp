@@ -13,6 +13,7 @@
 
 GridVisualizer::GridVisualizer(RenderData& rData, AlgoLogic& logicLeft, AlgoLogic& logicRight, GeometryBuilder& geoBuilder, AppState& state) : renderData(rData), algoLogicLeft(logicLeft), algoLogicRight(logicRight), geometryBuilder(geoBuilder), appState(state) {}
 
+// Setzen eines einzelnen Knotenzustands im Grid in der linken Algorithmusansicht
 void GridVisualizer::updateCubeColorsLeft(std::array<int, 3> coords, std::array<float, 4> scale, std::array<float, 4> color) {
 	auto idx = toIndex(coords[0], coords[1], coords[2]);
 
@@ -27,6 +28,7 @@ void GridVisualizer::updateCubeColorsLeft(std::array<int, 3> coords, std::array<
 	appState.cubeColorsLeft[idx].scale[3] = scale[3];
 }
 
+// Setzen eines einzelnen Knotenzustands im Grid in der rechten Algorithmusansicht
 void GridVisualizer::updateCubeColorsRight(std::array<int, 3> coords, std::array<float, 4> scale, std::array<float, 4> color) {
 	auto idx = toIndex(coords[0], coords[1], coords[2]);
 
@@ -41,6 +43,7 @@ void GridVisualizer::updateCubeColorsRight(std::array<int, 3> coords, std::array
 	appState.cubeColorsRight[idx].scale[3] = scale[3];
 }
 
+// Zeichnet Pfad in der linken Algorithmusansicht
 void GridVisualizer::drawPathLeft() {
 	for (int i = 0; i < appState.pathLeft.size(); i++) {
 		auto idx = toIndex(appState.pathLeft[i].x, appState.pathLeft[i].y, appState.pathLeft[i].z);
@@ -49,6 +52,7 @@ void GridVisualizer::drawPathLeft() {
 	}
 }
 
+// Zeichnet Pfad in der rechten Algorithmusansicht
 void GridVisualizer::drawPathRight() {
 	for (int i = 0; i < appState.pathRight.size(); i++) {
 		auto idx = toIndex(appState.pathRight[i].x, appState.pathRight[i].y, appState.pathRight[i].z);
@@ -57,6 +61,7 @@ void GridVisualizer::drawPathRight() {
 	}
 }
 
+// visualisiert einen Einzelschritt der Pfadsuche in der linken Algorithmusansicht
 void GridVisualizer::updateVisualizationLeft(int stepValue)
 {
     appState.visualStepLeft += stepValue;
@@ -131,6 +136,7 @@ void GridVisualizer::updateVisualizationLeft(int stepValue)
     updateCubeColorsLeft({ step.current.x, step.current.y, currentZ }, HALF_SCALE, WHITE);
 }
 
+// visualisiert einen Einzelschritt der Pfadsuche in der rechten Algorithmusansicht
 void GridVisualizer::updateVisualizationRight(int stepValue)
 {
 	appState.visualStepRight += stepValue;
@@ -196,10 +202,12 @@ void GridVisualizer::updateVisualizationRight(int stepValue)
 	updateCubeColorsRight({ step.current.x, step.current.y, step.current.z }, HALF_SCALE, WHITE);
 }
 
+// Hilfsfunktion zur Bestimmung von 3D-Positionsdaten in einem eindimensionalem Feld
 uint32_t GridVisualizer::toIndex(int x, int y, int z) {
 	return x + y * appState.xSize + z * appState.xSize * appState.ySize;
 }
 
+// Aktualisierung des StorageBuffers für die linke Algorithmusansicht
 void GridVisualizer::updateStorageBufferLeft() {
 	if (appState.cubeColorsLeft.size() == 0) {
 		return;
@@ -211,6 +219,7 @@ void GridVisualizer::updateStorageBufferLeft() {
 	vkUnmapMemory(renderData.vkInst.device, renderData.storageBuffer.memory);
 }
 
+// Aktualisierung des StorageBuffers für die rechte Algorithmusansicht
 void GridVisualizer::updateStorageBufferRight() {
 	if (appState.cubeColorsRight.size() == 0) {
 		return;
@@ -222,6 +231,7 @@ void GridVisualizer::updateStorageBufferRight() {
 	vkUnmapMemory(renderData.vkInst.device, renderData.storageBuffer.memoryRight);
 }
 
+// Aktualisierung des Buffers entweder für die linke oder rechte Algorithmusansicht
 void GridVisualizer::updateConnectionBuffer(bool isLeftViewport)
 {
     void* data = nullptr;

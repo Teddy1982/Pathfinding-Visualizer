@@ -102,13 +102,7 @@
     <ClInclude Include="src\pathfinding\greedy_best_first.h">
       <Filter>Headerdateien\pathfinding</Filter>
     </ClInclude>
-    <ClInclude Include="src\pathfinding\ida_star.h">
-      <Filter>Headerdateien\pathfinding</Filter>
-    </ClInclude>
     <ClInclude Include="src\pathfinding\pathfindingAlgorithm.h">
-      <Filter>Headerdateien\pathfinding</Filter>
-    </ClInclude>
-    <ClInclude Include="src\pathfinding\theta_star.h">
       <Filter>Headerdateien\pathfinding</Filter>
     </ClInclude>
     <ClInclude Include="src\scene\connection_vertex.h">

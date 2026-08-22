@@ -40,6 +40,16 @@ std::vector<glm::ivec3> Dijkstra::search(
     const float infinity = std::numeric_limits<float>::infinity();
     constexpr float epsilon = 0.00001f;
 
+    if (searchDirections == SEARCH_4_DIRECTIONS ||
+        searchDirections == SEARCH_6_DIRECTIONS)
+    {
+        logic.heuristicMode = MANHATTAN_DISTANCE;
+    }
+    else
+    {
+        logic.heuristicMode = EUCLID_DISTANCE;
+    }
+
     // Alle aktiven Rasterknoten zurücksetzen
     for (int x = 0; x < logic.xSize; ++x)
     {
@@ -78,7 +88,17 @@ std::vector<glm::ivec3> Dijkstra::search(
         return path;
     }
 
-    auto edgeCost =
+    auto manhattanDistance =
+        [](const Node* first, const Node* second) -> float
+        {
+            return static_cast<float>(
+                std::abs(first->x - second->x) +
+                std::abs(first->y - second->y) +
+                std::abs(first->z - second->z)
+                );
+        };
+
+    auto euclideanDistance =
         [](const Node* first, const Node* second) -> float
         {
             const float dx =
@@ -88,7 +108,19 @@ std::vector<glm::ivec3> Dijkstra::search(
             const float dz =
                 static_cast<float>(first->z - second->z);
 
-            return std::sqrt(dx * dx + dy * dy + dz * dz);
+            return std::sqrt(
+                dx * dx +
+                dy * dy +
+                dz * dz
+            );
+        };
+
+    auto edgeCost = [&](const Node* first, const Node* second) -> float
+        {
+            if (logic.heuristicMode == MANHATTAN_DISTANCE)
+                return manhattanDistance(first, second);
+
+            return euclideanDistance(first, second);
         };
 
     struct QueueEntry

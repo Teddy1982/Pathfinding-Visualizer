@@ -10,6 +10,7 @@
 struct AppState;
 struct RenderData;
 
+// Klasse für das Benutzermenü
 class UserInterface {
  public:
     UserInterface(AppState& state, AlgoLogic& logicLeft, AlgoLogic& logicRight);

@@ -2,6 +2,8 @@
 
 #include "pathfindingAlgorithm.h"
 
+// Greedy-Best-First-Algorithmus
+
 class Greedy_Best_First : public PathfindingAlgorithm {
 public:
     Greedy_Best_First();

@@ -5,6 +5,7 @@
 #include <array>
 #include <vulkan/vulkan.h>
 
+// Vertexklasse für Würfelaussenkanten
 
 struct CubeEdgeVertex {
 	float position[3];	// x, y, z

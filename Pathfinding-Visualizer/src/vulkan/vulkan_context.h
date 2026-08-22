@@ -10,12 +10,13 @@
 
 struct RenderData;
 
+// Klasse für das Erstellen von VulkanKontext-Objekten
 class VulkanContext {
 public:
 
 	VulkanContext(RenderData& rData);
 
-	void createVulkanInstance(GLFWwindow* window);
+	void createVulkanInstance();
 	void createSwapchain();
 	void createRenderPass();
 	void createVulkanDescriptors();

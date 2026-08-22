@@ -1,11 +1,13 @@
 #include "algoLogic.h"
 #include "../application/app_state.h"
 
+// Hilfsfunktion zur Bestimmung eines Index für ein eindimensionales Array anhand von 3D-Positionsdaten
 int AlgoLogic::GetIndex3D(int x, int y, int z)
 {
     return x + y * xSize + z * xSize * ySize;
 }
 
+// Initialsierung des Suchraumvektors
 void AlgoLogic::initArray(int xSiz, int ySiz, int zSiz)
 {
     xSize = xSiz;
@@ -21,6 +23,7 @@ void AlgoLogic::initArray(int xSiz, int ySiz, int zSiz)
     endNodeCoords3D = glm::ivec3(-1, -1, -1);
 }
 
+// Setzen des Startknoten in den Suchraum
 void AlgoLogic::setStartNode(int x, int y, int z)
 {
     for (int i = 0; i < array3D.size(); i++) {
@@ -31,6 +34,7 @@ void AlgoLogic::setStartNode(int x, int y, int z)
     startNodeCoords3D = glm::ivec3(x, y, z);
 }
 
+// Setzen des Zielknoten in den Suchraum
 void AlgoLogic::setEndNode(int x, int y, int z)
 {
     for (int i = 0; i < array3D.size(); i++) {
@@ -42,6 +46,7 @@ void AlgoLogic::setEndNode(int x, int y, int z)
     endNodeCoords3D = glm::ivec3(x, y, z);
 }
 
+// Setzen eines Hindernisknoten in den Suchraum
 void AlgoLogic::setObstacleNode(int x, int y, int z)
 {
     array3D.at(GetIndex3D(x, y, z)) = OBSTACLE_NODE;
@@ -58,6 +63,7 @@ void AlgoLogic::eraseNodeValue(int x, int y, int z)
     array3D.at(GetIndex3D(x, y, z)) = 0;
 }
 
+// Initialiserung der Knotenzustände und Nachbarn anhand des Suchraums
 void AlgoLogic::NodesInit(int searchDirections, bool draw3D)
 {
     int gridZ = zSize;

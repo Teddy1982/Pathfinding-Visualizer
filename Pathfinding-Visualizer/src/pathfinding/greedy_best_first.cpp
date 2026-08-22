@@ -36,9 +36,9 @@ std::vector<glm::ivec3> Greedy_Best_First::search(
     logic.NodesInit(searchDirections, draw3D);
     logic.nodeSteps.clear();
 
-    logic.heuristicMode =
-        (searchDirections == SEARCH_4_DIRECTIONS ||
-            searchDirections == SEARCH_6_DIRECTIONS)
+    logic.heuristicMode = 
+        searchDirections == SEARCH_4_DIRECTIONS ||
+        searchDirections == SEARCH_6_DIRECTIONS
         ? MANHATTAN_DISTANCE
         : EUCLID_DISTANCE;
 

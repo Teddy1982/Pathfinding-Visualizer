@@ -2,6 +2,7 @@
 
 #include "glm/glm.hpp"
 
+//UniformBufferObject-Struktur
 struct UniformBufferObject {
 	glm::mat4 proj;
 	glm::mat4 view;

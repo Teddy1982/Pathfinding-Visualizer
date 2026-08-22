@@ -6,6 +6,7 @@
 #include "../globals/global_constants.h"
 #include "../scene/cube_state.h"
 
+// enthält Zustandsvariablen und Objekte, das von anderen Klassen als Referenz verwendet wird
 struct AppState {
 public:
 	glm::vec3 selectedCubeId = glm::vec3(0.0f, 0.0f, 0.0f);

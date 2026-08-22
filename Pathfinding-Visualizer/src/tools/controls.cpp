@@ -1,6 +1,7 @@
 #include "Controls.h"
 
 Controls::Controls() {
+    // Erstellung einer Steuerungkonfigurationsdatei, falls noch nicht vorhanden
     filename = "data/controls.txt";
     if (!std::filesystem::exists(filename)) {
         if (!std::filesystem::exists("data")) {
@@ -15,14 +16,17 @@ Controls::Controls() {
     }
 }
 
+// gibt die Tastenbelegung zurück
 const KeyBindings& Controls::getKeyBindings() const {
     return keyMap;
 }
 
+// überschreibt die Tastenbelegung
 void Controls::setKeyBindings(const KeyBindings& bindings) {
     keyMap = bindings;
 }
 
+// Einstellung ob bestimmte Tasten aufgrund ihres Aktivierungszustands als gedrückt oder al 1x betätigt behandelt werden sollen
 void Controls::keyCallback(int key, int action) {
     if (action == GLFW_REPEAT) {
         return;
@@ -51,6 +55,7 @@ void Controls::keyCallback(int key, int action) {
     else if (pressed && key == keyMap.play_pause)       state.play_pause = true;
 }
 
+// Zurücksetzen der Tastenaktivierungen
 void Controls::clearFrameTriggers() {
     state.moveUp = false;
     state.moveDown = false;
@@ -66,10 +71,12 @@ void Controls::clearFrameTriggers() {
     state.play_pause = false;
 }
 
+// gibt Aktivierungszustände der Tasten zurück (aktiviert oder nicht)
 const InputState& Controls::getInputState() {
     return state;
 }
 
+// gibt Bezeichnung einer Taste anhand ihres Key-Codes zurück
 const char* Controls::getKeyDisplayName(int key) {
     const char* name = glfwGetKeyName(key, 0);
     if (name) return name;
@@ -86,6 +93,7 @@ const char* Controls::getKeyDisplayName(int key) {
     }
 }
 
+// setzt Kamerasteuerungstaste auf aktiviert, falls sie gedrückt wird
 void Controls::update(GLFWwindow* window) {
     state.cameraUp = glfwGetKey(window, keyMap.cameraUp) == GLFW_PRESS;
     state.cameraDown = glfwGetKey(window, keyMap.cameraDown) == GLFW_PRESS;
@@ -95,6 +103,7 @@ void Controls::update(GLFWwindow* window) {
     state.cameraBackward = glfwGetKey(window, keyMap.cameraBackward) == GLFW_PRESS;
 }
 
+// lädt Tastenbelegung aus Steuerungkonfigurationsdatei
 void Controls::loadBindings() {
     std::vector<int> entries;
     std::ifstream file(filename);
@@ -130,6 +139,7 @@ void Controls::loadBindings() {
     setKeyBindings(bindings);
 }
 
+// speichert Tastenbelegung in Steuerungkonfigurationsdatei
 void Controls::saveBindings() {
     std::ofstream file(filename, std::ios::trunc);
     file << keyMap.cameraUp << "\n";

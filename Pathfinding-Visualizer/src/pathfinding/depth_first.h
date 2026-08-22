@@ -2,6 +2,8 @@
 
 #include "pathfindingAlgorithm.h"
 
+// Depth-First-Algorithmus
+
 class Depth_First : public PathfindingAlgorithm {
 public:
     Depth_First();

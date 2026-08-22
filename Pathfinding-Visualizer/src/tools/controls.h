@@ -11,6 +11,8 @@
 #include <GLFW/glfw3.h>
 #include <unordered_map>
 
+// Strukturen für Tastensteuerung
+
 struct RebindContext {
     bool awaitingKey = false;
     std::string actionName;
@@ -59,6 +61,7 @@ struct KeyBindings {
     int play_pause = GLFW_KEY_P;
 };
 
+//Klasse für Funktionen rundum die Tastensteuerung mit Speichern- und Ladenmöglichkeit
 class Controls {
 public:
     Controls();

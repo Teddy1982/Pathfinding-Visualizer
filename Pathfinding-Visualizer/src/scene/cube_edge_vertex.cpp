@@ -1,3 +1,5 @@
+// cpp.Datei enthält Bindungs- und Attributdateien der Vertexklasse für die Aussenkanten eines Würfels für die Vulkan-Grafik-Pipeline
+
 #include "cube_edge_vertex.h"
 
 VkVertexInputBindingDescription CubeEdgeVertex::getBindingDescription() {

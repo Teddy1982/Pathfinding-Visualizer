@@ -12,6 +12,7 @@ GridController::GridController(GridVisualizer& visualizer, UserInterface& ui, Al
 {}
 
 void GridController::doAction() {
+	// Setzen des Startknotens
 	if (userInterface.settings == SET_START_NODE) {
 		resetSearchState();
 		appState.stepSearchInitializedLeft = false;
@@ -24,6 +25,7 @@ void GridController::doAction() {
 		gridVisualizer.updateCubeColorsLeft(newNodeCoords, FULL_SCALE, BLUE);
 		gridVisualizer.updateCubeColorsRight(newNodeCoords, FULL_SCALE, BLUE);
 	}
+	// Setzen des Zielknotens
 	else if (userInterface.settings == SET_END_NODE) {
 		resetSearchState();
 		appState.stepSearchInitializedLeft = false;
@@ -36,6 +38,7 @@ void GridController::doAction() {
 		gridVisualizer.updateCubeColorsLeft(newNodeCoords, FULL_SCALE, PINK);
 		gridVisualizer.updateCubeColorsRight(newNodeCoords, FULL_SCALE, PINK);
 	}
+	//Setzen des Hindernisknotens
 	else if (userInterface.settings == SET_OBSTACLE_NODE) {
 		resetSearchState();
 		appState.stepSearchInitializedLeft = false;
@@ -45,6 +48,7 @@ void GridController::doAction() {
 		gridVisualizer.updateCubeColorsLeft({ appState.selX, appState.selY, appState.selZ }, FULL_SCALE, BLACK);
 		gridVisualizer.updateCubeColorsRight({ appState.selX, appState.selY, appState.selZ }, FULL_SCALE, BLACK);
 	}
+	// Löschen eines einzelnen Knotens
 	else if (userInterface.settings == SET_ERASE_NODE) {
 		resetSearchState();
 		appState.stepSearchInitializedLeft = false;
@@ -54,6 +58,7 @@ void GridController::doAction() {
 		gridVisualizer.updateCubeColorsLeft({ appState.selX, appState.selY, appState.selZ }, ZERO_SCALE, CLEAR);
 		gridVisualizer.updateCubeColorsRight({ appState.selX, appState.selY, appState.selZ }, ZERO_SCALE, CLEAR);
 	}
+	// Löschen aller Knoten
 	else if (userInterface.settings == SET_ERASE_ALL_NODES) {
 		resetSearchState();
 		appState.stepSearchInitializedLeft = false;
@@ -83,6 +88,7 @@ void GridController::doAction() {
 		appState.showPathLeft = false;
 		appState.showPathRight = false;
 	}
+	// Löschen aller Knoten, die bei der Suche entstehen, wie offene, bearbeitete, PfadKnoten und Verbindungslinien
 	else if (userInterface.settings == SET_ERASE_ALL_PATH_NODES) {
 		resetSearchState();
 		appState.stepSearchInitializedLeft = false;
@@ -123,6 +129,7 @@ void GridController::doAction() {
 		appState.showPathLeft = false;
 		appState.showPathRight = false;
 	}
+	// direkte Pfadsuche
 	else if (userInterface.settings == SET_SEARCH_PATH) {
 		if (algoLogicLeft.startNodeCoords3D.x == -1 || algoLogicLeft.endNodeCoords3D.x == -1 || appState.stepValueLeft != 0 || appState.stepValueRight != 0) {
 			appState.stepValueLeft = 0;
@@ -195,6 +202,7 @@ void GridController::doAction() {
 			}
 		}
 	}
+	// Pfadsuche im Einzelschrittmodus oder Wiedergabe in einer Animation
 	else if (userInterface.settings == SET_SEARCH_PATH_STEP || userInterface.settings == SET_SEARCH_PATH_PLAY) {
 		if (algoLogicLeft.startNodeCoords3D.x == -1 || algoLogicLeft.endNodeCoords3D.x == -1) {
 			return;
@@ -223,6 +231,7 @@ void GridController::doAction() {
 	gridVisualizer.updateStorageBufferRight();
 }
 
+// Setzt Sucheinstellungen auf Startzustand
 void GridController::resetSearchState() {
 	appState.visualStepLeft = -1;
 	appState.visualStepRight = -1;
@@ -236,6 +245,7 @@ void GridController::resetSearchState() {
 	algoLogicRight.runtime = 0;
 }
 
+// Löscht Knoten und seinen Zustand in der linken und rechten Algorithmusansicht
 void GridController::clearNodeColor(const std::array<int, 3>& coords) {
 	if (coords[0] != -1) {
 		gridVisualizer.updateCubeColorsLeft(coords, ZERO_SCALE, CLEAR);
@@ -243,6 +253,7 @@ void GridController::clearNodeColor(const std::array<int, 3>& coords) {
 	}
 }
 
+// Initialisert Pfadeinstellungen für schrittweise Suche und Animationswiedergabe für die linke Algorithmusansicht
 void GridController::initializeAnimationLeft() {
 	appState.visualStepLeft = -1;
 	appState.pathLeft.clear();
@@ -257,6 +268,7 @@ void GridController::initializeAnimationLeft() {
 
 }
 
+// Initialisert Pfadeinstellungen für schrittweise Suche und Animationswiedergabe für die rechte Algorithmusansicht
 void GridController::initializeAnimationRight() {
 	appState.visualStepRight = -1;
 	appState.pathRight.clear();

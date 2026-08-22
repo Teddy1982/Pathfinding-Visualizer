@@ -1,3 +1,5 @@
+// cpp.Datei enthält Bindungs- und Attributdateien der Vertexklasse für ein Quadrat für die Vulkan-Grafik-Pipeline
+
 #include "quad_vertex.h"
 
 VkVertexInputBindingDescription QuadVertex::getBindingDescription() {

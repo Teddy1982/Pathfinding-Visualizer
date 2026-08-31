@@ -49,6 +49,9 @@ class UserInterface {
     int step_right = 0;
 
     bool isThinking = false;
+    bool isSetting = false;
+
+    const char* settingKeyName;
 
     ImVec2 thinkingWindowPos;
 

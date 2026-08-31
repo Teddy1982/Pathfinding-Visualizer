@@ -207,6 +207,7 @@ void GridController::doAction() {
 		if (algoLogicLeft.startNodeCoords3D.x == -1 || algoLogicLeft.endNodeCoords3D.x == -1) {
 			return;
 		}
+
 		userInterface.isThinking = true;
 		renderer.drawFrame();
 
@@ -256,6 +257,7 @@ void GridController::clearNodeColor(const std::array<int, 3>& coords) {
 // Initialisert Pfadeinstellungen für schrittweise Suche und Animationswiedergabe für die linke Algorithmusansicht
 void GridController::initializeAnimationLeft() {
 	appState.visualStepLeft = -1;
+	appState.stepValueLeft = 0;
 	appState.pathLeft.clear();
 	appState.showPathLeft = false;
 	algoLogicLeft.nodeSteps.clear();
@@ -271,6 +273,7 @@ void GridController::initializeAnimationLeft() {
 // Initialisert Pfadeinstellungen für schrittweise Suche und Animationswiedergabe für die rechte Algorithmusansicht
 void GridController::initializeAnimationRight() {
 	appState.visualStepRight = -1;
+	appState.stepValueRight = 0;
 	appState.pathRight.clear();
 	appState.showPathRight = false;
 	algoLogicRight.nodeSteps.clear();

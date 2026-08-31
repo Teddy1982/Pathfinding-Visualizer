@@ -14,6 +14,12 @@
 #include <array>
 #include <fstream>
 
+#ifdef NDEBUG
+constexpr bool enableValidationLayers = false;
+#else
+constexpr bool enableValidationLayers = true;
+#endif
+
 VulkanContext::VulkanContext(RenderData& rData) : renderData(rData)
 { }
 
@@ -48,16 +54,30 @@ void VulkanContext::createVulkanInstance() {
 
 	// Aktiviert die Vulkan-Validierungsschicht
 	const char* layers[] = { "VK_LAYER_KHRONOS_validation" };
-	createInfo.enabledLayerCount = 1;
-	createInfo.ppEnabledLayerNames = layers;
+
+	if (enableValidationLayers) {
+		createInfo.enabledLayerCount = 1;
+		createInfo.ppEnabledLayerNames = layers;
+	}
+	else {
+		createInfo.enabledLayerCount = 0;
+		createInfo.ppEnabledLayerNames = nullptr;
+	}
 
 	// Aktiviert die für die Fensterausgabe und
 	// Debugmeldungen benötigten Erweiterungen
-	const char* extensions[] = { "VK_KHR_surface",
-								 "VK_KHR_win32_surface",
-								 "VK_EXT_debug_report" };
-	createInfo.enabledExtensionCount = 3;
-	createInfo.ppEnabledExtensionNames = extensions;
+	std::vector<const char*> extensions = {
+		"VK_KHR_surface",
+		"VK_KHR_win32_surface"
+	};
+
+	if (enableValidationLayers) {
+		extensions.push_back(VK_EXT_DEBUG_REPORT_EXTENSION_NAME);
+	}
+
+	createInfo.enabledExtensionCount =
+		static_cast<uint32_t>(extensions.size());
+	createInfo.ppEnabledExtensionNames = extensions.data();
 
 	// Erstellt die zentrale Vulkan-Instanz
 	if (vkCreateInstance(&createInfo, nullptr, &renderData.vkInst.instance) != VK_SUCCESS) {
@@ -66,35 +86,37 @@ void VulkanContext::createVulkanInstance() {
 
 #ifdef ENABLE_VULKAN_DEBUG_CALLBACK
 	{
-		// Richtet Rückruffunktionen für Fehler-, Warnungs-
+		if (enableValidationLayers) {
+			// Richtet Rückruffunktionen für Fehler-, Warnungs-
 		// und Leistungsmeldungen der Validierungsschicht ein
-		VkDebugReportCallbackEXT error_callback = VK_NULL_HANDLE;
-		VkDebugReportCallbackEXT warning_callback = VK_NULL_HANDLE;
+			VkDebugReportCallbackEXT error_callback = VK_NULL_HANDLE;
+			VkDebugReportCallbackEXT warning_callback = VK_NULL_HANDLE;
 
-		PFN_vkCreateDebugReportCallbackEXT vkCreateDebugReportCallbackEXT = NULL;
+			PFN_vkCreateDebugReportCallbackEXT vkCreateDebugReportCallbackEXT = NULL;
 
-		// Lädt die Erweiterungsfunktion zur Erstellung
-		// eines Debug-Callbacks
-		*(void**)&vkCreateDebugReportCallbackEXT = vkGetInstanceProcAddr(renderData.vkInst.instance, "vkCreateDebugReportCallbackEXT");
-		DBG_ASSERT(vkCreateDebugReportCallbackEXT);
+			// Lädt die Erweiterungsfunktion zur Erstellung
+			// eines Debug-Callbacks
+			*(void**)&vkCreateDebugReportCallbackEXT = vkGetInstanceProcAddr(renderData.vkInst.instance, "vkCreateDebugReportCallbackEXT");
+			DBG_ASSERT(vkCreateDebugReportCallbackEXT);
 
-		VkDebugReportCallbackCreateInfoEXT cb_create_info = {};
-		cb_create_info.sType = VK_STRUCTURE_TYPE_DEBUG_REPORT_CREATE_INFO_EXT;
-		
-		// Erstellt den Callback für Vulkan-Fehlermeldungen
-		cb_create_info.flags = VK_DEBUG_REPORT_ERROR_BIT_EXT;
-		cb_create_info.pfnCallback = &MyDebugReportCallback;
+			VkDebugReportCallbackCreateInfoEXT cb_create_info = {};
+			cb_create_info.sType = VK_STRUCTURE_TYPE_DEBUG_REPORT_CREATE_INFO_EXT;
 
-		VkResult result = vkCreateDebugReportCallbackEXT(renderData.vkInst.instance, &cb_create_info, nullptr, &error_callback);
-		DBG_ASSERT(result == VK_SUCCESS);
+			// Erstellt den Callback für Vulkan-Fehlermeldungen
+			cb_create_info.flags = VK_DEBUG_REPORT_ERROR_BIT_EXT;
+			cb_create_info.pfnCallback = &MyDebugReportCallback;
 
-		// Erstellt einen weiteren Callback für Warnungen
-		// und mögliche Leistungsprobleme
-		cb_create_info.flags = VK_DEBUG_REPORT_WARNING_BIT_EXT | VK_DEBUG_REPORT_PERFORMANCE_WARNING_BIT_EXT;
-		cb_create_info.pfnCallback = &MyDebugReportCallback;
+			VkResult result = vkCreateDebugReportCallbackEXT(renderData.vkInst.instance, &cb_create_info, nullptr, &error_callback);
+			DBG_ASSERT(result == VK_SUCCESS);
 
-		result = vkCreateDebugReportCallbackEXT(renderData.vkInst.instance, &cb_create_info, nullptr, &warning_callback);
-		DBG_ASSERT(result == VK_SUCCESS);
+			// Erstellt einen weiteren Callback für Warnungen
+			// und mögliche Leistungsprobleme
+			cb_create_info.flags = VK_DEBUG_REPORT_WARNING_BIT_EXT | VK_DEBUG_REPORT_PERFORMANCE_WARNING_BIT_EXT;
+			cb_create_info.pfnCallback = &MyDebugReportCallback;
+
+			result = vkCreateDebugReportCallbackEXT(renderData.vkInst.instance, &cb_create_info, nullptr, &warning_callback);
+			DBG_ASSERT(result == VK_SUCCESS);
+		}
 	}
 #endif
 
